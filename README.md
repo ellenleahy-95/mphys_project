@@ -2,4 +2,4 @@
 
 Simulator for variability of sources in star forming regions.
 
-Code written by Joe Stickley and Ellen Leahy.
+Code written by Joe Stickley and Ellen Leahy. 01.02.2018
