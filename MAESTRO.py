@@ -3,7 +3,7 @@ import tkinter as tk   # python3
 from fieldOfView import FieldOfView
 from lightCurve import LightCurve
 from Title import Title
-from addSourceButton import AddSourceButton
+from sourceButton import SourceButton
 
 class MAESTRO(tk.Frame):
 
@@ -13,7 +13,7 @@ class MAESTRO(tk.Frame):
         Title(self, master)
         FieldOfView(self, master)
         LightCurve(self, master)
-        AddSourceButton(self, master)
+        SourceButton(self, master)
 
 
 
