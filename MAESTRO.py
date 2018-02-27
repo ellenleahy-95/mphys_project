@@ -12,6 +12,7 @@ class MAESTRO(tk.Frame):
         title = Title(self, master)
         fofv = FieldOfView(self, master)
         lCurve = LightCurve(self, master)
+        fofv.createFits()
 
 if __name__ == "__main__":
     app = MAESTRO()

@@ -10,11 +10,12 @@ class FieldOfView(object):
         self.fovCanvas = tk.Canvas(master, bg="blue", height=250, width=300)
         self.fovCanvas.place(relx=0.05, rely=0.1)
 
-    def createFits():
+    def createFits(self):
         # This function will create the fits file which will be shown in the Field of field of view
         # The data will be calculated using source information input by the user
 
         # fake data until real data can be created
-        data = np.arrange(100.0)
+        data = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]], np.int32)
         hdu = fits.PrimaryHDU(data)
-        hdu.writeto('fieldOfView.fits')
+
+        hdu.writeto('test.fits', overwrite=True)
