@@ -27,6 +27,8 @@ class SourceButton(object):
      def massClick(self):
          self.mass = self.massin.get()
          self.makeAList()
+         #clears the entry field
+         self.massin.delete(first=0,last=1000)
 
      def makeAList(self):
          self.sourceMasses.append(self.mass)
