@@ -4,6 +4,7 @@ from fieldOfView import FieldOfView
 from lightCurve import LightCurve
 from Title import Title
 from sourceButton import SourceButton
+from goButton import GoButton
 
 class MAESTRO(tk.Frame):
 
@@ -11,12 +12,13 @@ class MAESTRO(tk.Frame):
         tk.Frame.__init__(self, width=1080, height=700)
 
         Title(self, master)
-        FieldOfView(self, master)
+        sourceButton(self, master)
+        self._fofv = FieldOfView(self, master)
         LightCurve(self, master)
-        SourceButton(self, master)
+        GoButton(self, master)
 
-
-
+    def runMAESTRO(self, clicked):
+        self._fofv.createFits()
 
 if __name__ == "__main__":
     app = MAESTRO()
