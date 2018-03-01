@@ -41,7 +41,9 @@ class SourceButton(object):
      def fileClick(self):
          with open(self.fileIn.get()) as self.file:
              for line in self.file:
-                 self.addToSources(line.rstrip('\n'))
+                 if not line.startswith('#'):
+                     self.addToSources(line.rstrip('\n'))
 
      def addToSources(self, massInput):
+         self._app.strToFloat(massInput)
          self.sourceMasses.append(massInput)
