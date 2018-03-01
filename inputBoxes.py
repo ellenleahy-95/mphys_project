@@ -7,52 +7,31 @@ class InputBoxes(object):
 
 
      def __init__(self, app, master):
-         
+
          self._app = app
 
+         # Create labels
+         self.labelSize = tk.Label(master, text="Size (pc):")
+         self.labelSize.place(relx=0.05,rely=0.75)
+         self.labelDistance = tk.Label(master, text="Distance (pc):")
+         self.labelDistance.place(relx=0.05,rely=0.8)
+         self.labelFofV = tk.Label(master, text="Field of View (arcmin):")
+         self.labelFofV.place(relx=0.05,rely=0.85)
 
-         #Create labels
-         self.label = tk.Label(master, text="Size:")
-         self.label.place(relx=0.05,rely=0.8)
-         self.label = tk.Label(master, text="Distance:")
-         self.label.place(relx=0.05,rely=0.82)
-         self.label = tk.Label(master, text="Field of View:")
-         self.label.place(relx=0.05,rely=0.84)
-
-         #Create entry fields
-         self.sizein = tk.Entry(master)
-         self.sizein.place(relx=0.15,rely=0.8)
+         # Create entry fields
+         self.sizeIn = tk.Entry(master)
+         self.sizeIn.place(relx=0.19,rely=0.75)
          self.distanceIn = tk.Entry(master)
-         self.distanceIn.place(relx=0.15,rely=0.82)
-         self.fofvin = tk.Entry(master)
-         self.fofvin.place(relx=0.15,rely=0.84)
+         self.distanceIn.place(relx=0.19,rely=0.8)
+         self.fofvIn = tk.Entry(master)
+         self.fofvIn.place(relx=0.19,rely=0.85)
 
      def getInput(self):
-         size = self.sizein.get()
+         size = self.sizeIn.get()
          self._app.strToFloat(size)
 
          distance = self.distanceIn.get()
          self._app.strToFloat(distance)
 
-         fieldOfView = self.fofvin.get()
+         fieldOfView = self.fofvIn.get()
          self._app.strToFloat(fieldOfView)
-
-         
-
-         print("Size = %s \n Distance = %s \n Field of View = %s" % (size, distance, fieldOfView))
-
-
-
-         #Button calls massClick, saves and stores masses
-         #self.SourceButton = tk.Button(master, text = "submit", command =self.massClick)
-         #self.SourceButton.place(relx=0.25, rely=0.5)
-
-
-
-   #  def massClick(self):
-   #      self.mass = self.massin.get()
-   #      self.makeAList()
-
-  #   def makeAList(self):
-   #      self.sourceMasses.append(self.mass)
-    #     print(self.sourceMasses)
