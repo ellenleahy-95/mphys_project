@@ -10,6 +10,9 @@ class FieldOfView(object):
         self.fovCanvas = tk.Canvas(master, bg="blue", height=250, width=300)
         self.fovCanvas.place(relx=0.05, rely=0.1)
 
+        self.labelfovCanvas = tk.Label(master, text="Field of View")
+        self.labelfovCanvas.place(relx=0.05, rely=0.05)
+
     def createFits(self):
         # This function will create the fits file which will be shown in the Field of field of view
         # The data will be calculated using source information input by the user
