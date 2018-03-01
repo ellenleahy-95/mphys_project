@@ -6,6 +6,7 @@ from Title import Title
 from sourceButton import SourceButton
 from goButton import GoButton
 from sourceDistribution import SourceDistribution
+from inputBoxes import InputBoxes
 
 class MAESTRO(tk.Frame):
 
@@ -18,9 +19,19 @@ class MAESTRO(tk.Frame):
         LightCurve(self, master)
         GoButton(self, master)
         SourceDistribution(self, master)
+        self._inputboxes = InputBoxes(self,master)
 
     def runMAESTRO(self, clicked):
         self._fofv.createFits()
+        self._inputboxes.getInput()
+
+    def strToFloat(self, value):
+        try:
+            return float(value)
+        except ValueError:
+            print("All values must be floats")
+            exit()
+
 
 if __name__ == "__main__":
     app = MAESTRO()
