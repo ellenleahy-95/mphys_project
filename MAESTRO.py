@@ -5,6 +5,7 @@ from lightCurve import LightCurve
 from Title import Title
 from sourceButton import SourceButton
 from goButton import GoButton
+from sourceDistribution import SourceDistribution
 
 class MAESTRO(tk.Frame):
 
@@ -16,6 +17,7 @@ class MAESTRO(tk.Frame):
         self._fofv = FieldOfView(self, master)
         LightCurve(self, master)
         GoButton(self, master)
+        SourceDistribution(self, master)
 
     def runMAESTRO(self, clicked):
         self._fofv.createFits()
