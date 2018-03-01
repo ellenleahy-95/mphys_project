@@ -1,6 +1,6 @@
 import tkinter as tk
 
-#TODO add in checks, is it a number etc.
+# TODO add in checks, is it a number etc.
 
 class SourceButton(object):
 

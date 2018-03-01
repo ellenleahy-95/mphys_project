@@ -12,7 +12,7 @@ class MAESTRO(tk.Frame):
         tk.Frame.__init__(self, width=1080, height=700)
 
         Title(self, master)
-        sourceButton(self, master)
+        SourceButton(self, master)
         self._fofv = FieldOfView(self, master)
         LightCurve(self, master)
         GoButton(self, master)
