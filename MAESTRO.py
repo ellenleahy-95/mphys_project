@@ -19,7 +19,7 @@ class MAESTRO(tk.Frame):
         self._fofv = FieldOfView(self, master)
         LightCurve(self, master)
         GoButton(self, master)
-        SourceDistribution(self, master)
+        self._sDist = SourceDistribution(self, master)
         self._inputboxes = InputBoxes(self,master)
         TimeInput(self, master)
 
@@ -27,7 +27,17 @@ class MAESTRO(tk.Frame):
     def runMAESTRO(self, clicked):
         self._fofv.createFits()
         self._inputboxes.getInput()
+<<<<<<< Updated upstream
         self._sInput.createTable()
+=======
+        dist = self._sDist.getDistribution()
+        if dist == "random":
+            self._sDist.distributedRandomly(table, size)
+        elif dist == "evenly distributed":
+            print("EVEN!")
+        else:
+            print("Please pick a distribution")
+>>>>>>> Stashed changes
 
     def strToFloat(self, value):
         try:
