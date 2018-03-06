@@ -24,7 +24,7 @@ The simulator takes inputs of:
 
 ```
 
-* Time intervals at which sky images should be modelled. These can be individually added or submitted in a table as for source masses. 
+* Time intervals at which sky images should be modelled. These can be submitted in a table as for source masses. 
 * Cluster size (parsecs)
 * Distance to cluster (parsecs)
 * Field of view (arcminutes) -  used to produce a sky image. 
@@ -49,8 +49,8 @@ Additions to this project that may be of use in the future.
 
 ## Authors
 
-* **Ellen Leahy** - *Initial work*
-* **Joe Stickley** - *Initial work* 
+* **Ellen Leahy** - *University of Manchester 4th Year Student - Physics with Astrophysics*
+* **Joe Stickley** - *University of Manchester 4th Year Student - Physics* 
 
 See also the list of [contributors](https://github.com/ellenleahy-95/mphys_project/contributors) who participated in this project.
 
