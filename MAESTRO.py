@@ -3,10 +3,11 @@ import tkinter as tk   # python3
 from fieldOfView import FieldOfView
 from lightCurve import LightCurve
 from Title import Title
-from sourceButton import SourceButton
+from sourceInput import SourceInput
 from goButton import GoButton
 from sourceDistribution import SourceDistribution
 from inputBoxes import InputBoxes
+from timeInput import TimeInput
 
 class MAESTRO(tk.Frame):
 
@@ -14,12 +15,14 @@ class MAESTRO(tk.Frame):
         tk.Frame.__init__(self, width=1080, height=700)
 
         Title(self, master)
-        SourceButton(self, master)
+        SourceInput(self, master)
         self._fofv = FieldOfView(self, master)
         LightCurve(self, master)
         GoButton(self, master)
         SourceDistribution(self, master)
         self._inputboxes = InputBoxes(self,master)
+        TimeInput(self, master)
+
 
     def runMAESTRO(self, clicked):
         self._fofv.createFits()

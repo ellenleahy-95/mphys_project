@@ -2,7 +2,7 @@ import tkinter as tk
 
 # TODO add in checks, is it a number etc.
 
-class SourceButton(object):
+class SourceInput(object):
 
 
      def __init__(self, app, master):
@@ -39,10 +39,14 @@ class SourceButton(object):
          self.massIn.delete(first=0,last=1000)
 
      def fileClick(self):
-         with open(self.fileIn.get()) as self.file:
-             for line in self.file:
-                 if not line.startswith('#'):
-                     self.addToSources(line.rstrip('\n'))
+         try:
+             with open(self.fileIn.get()) as self.file:
+                 for line in self.file:
+                     if not line.startswith('#'):
+                         self.addToSources(line.rstrip('\n'))
+         except:
+             print("Please enter a valid file name")
+             exit()
 
      def addToSources(self, massInput):
          self._app.strToFloat(massInput)
