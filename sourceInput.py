@@ -10,6 +10,7 @@ class SourceInput(object):
 
          # array will hold source masses
          self.sourceMasses = []
+         self.starTable = []
 
          self.labelMassInput = tk.Label(master, text="Mass:")
          self.labelMassInput.place(relx=0.05, rely=0.6)
@@ -49,5 +50,24 @@ class SourceInput(object):
              exit()
 
      def addToSources(self, massInput):
-         self._app.strToFloat(massInput)
+         massInput = self._app.strToFloat(massInput)
          self.sourceMasses.append(massInput)
+
+
+     def createTable(self):
+         i = 0
+         for mass in self.sourceMasses:
+            tempArray = []
+            tempArray.append(self.sourceMasses[i])
+            tempArray.append(self.assignType(self.sourceMasses[i]))
+            self.starTable.append(tempArray)
+            i += 1
+         print(self.starTable)
+
+     def assignType(self, starMass):
+        if starMass <= 2:
+            return "T-Tauri"
+        elif starMass > 2 and starMass <= 8:
+            return "Medium"
+        elif starMass > 8:
+            return "Massive"

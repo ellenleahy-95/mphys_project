@@ -15,7 +15,7 @@ class MAESTRO(tk.Frame):
         tk.Frame.__init__(self, width=1080, height=700)
 
         Title(self, master)
-        SourceInput(self, master)
+        self._sInput = SourceInput(self, master)
         self._fofv = FieldOfView(self, master)
         LightCurve(self, master)
         GoButton(self, master)
@@ -27,6 +27,7 @@ class MAESTRO(tk.Frame):
     def runMAESTRO(self, clicked):
         self._fofv.createFits()
         self._inputboxes.getInput()
+        self._sInput.createTable()
 
     def strToFloat(self, value):
         try:
