@@ -63,6 +63,11 @@ class SourceInput(object):
             self.starTable.append(tempArray)
             i += 1
          print(self.starTable)
+         return self.starTable
+
+     def addToTable(self, star, variable):
+         self.starTable[star].append(variable)
+         print(self.starTable)
 
      def assignType(self, starMass):
         if starMass <= 2:

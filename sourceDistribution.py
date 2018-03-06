@@ -1,4 +1,6 @@
 import tkinter as tk   # python3
+import numpy as np
+import random
 
 class SourceDistribution(object):
 
@@ -21,4 +23,10 @@ class SourceDistribution(object):
         distribution = self.dist.get()
         return distribution
 
-    def distributeRandomly(self, table, size):
+    def distributeRandomly(self, size):
+        sizeArray = np.arange(0.0, size, 0.01)
+        x = random.choice(sizeArray)
+        y = random.choice(sizeArray)
+        print(x)
+        print(y)
+        return x,y

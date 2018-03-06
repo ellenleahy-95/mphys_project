@@ -26,18 +26,20 @@ class MAESTRO(tk.Frame):
 
     def runMAESTRO(self, clicked):
         self._fofv.createFits()
-        self._inputboxes.getInput()
-<<<<<<< Updated upstream
-        self._sInput.createTable()
-=======
+        size = self._inputboxes.getInput()
         dist = self._sDist.getDistribution()
+        table = self._sInput.createTable()
         if dist == "random":
-            self._sDist.distributedRandomly(table, size)
+            i = 0
+            while i < len(table):
+                x,y = self._sDist.distributeRandomly(size)
+                self._sInput.addToTable(i, x)
+                self._sInput.addToTable(i, y)
+                i += 1
         elif dist == "evenly distributed":
             print("EVEN!")
         else:
             print("Please pick a distribution")
->>>>>>> Stashed changes
 
     def strToFloat(self, value):
         try:
