@@ -43,6 +43,3 @@ class InputBoxes(object):
         # This calculates an angularSize in arcminutes
     def sizeCalculation(self, s, d):
         angularSize = ((s*(648000/math.pi))/d)/60
-        print(angularSize)
-
-
