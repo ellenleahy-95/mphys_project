@@ -17,29 +17,27 @@ class MAESTRO(tk.Frame):
         Title(self, master)
         self._sInput = SourceInput(self, master)
         self._fofv = FieldOfView(self, master)
+        # self._graph = Graph(self)
         LightCurve(self, master)
         GoButton(self, master)
         self._sDist = SourceDistribution(self, master)
-        self._inputboxes = InputBoxes(self,master)
+        self._inputboxes = InputBoxes(self, master)
         TimeInput(self, master)
 
 
     def runMAESTRO(self, clicked):
         self._fofv.createFits()
         size = self._inputboxes.getInput()
+        print(size)
         dist = self._sDist.getDistribution()
-        table = self._sInput.createTable()
+        self._sInput.createTable()
         if dist == "random":
-            i = 0
-            while i < len(table):
-                x,y = self._sDist.distributeRandomly(size)
-                self._sInput.addToTable(i, x)
-                self._sInput.addToTable(i, y)
-                i += 1
+            self._sDist.distributeRandomly(size, self._sInput.starTable)
         elif dist == "evenly distributed":
             print("EVEN!")
         else:
             print("Please pick a distribution")
+        self._fofv.plotStars()
 
     def strToFloat(self, value):
         try:
@@ -47,6 +45,7 @@ class MAESTRO(tk.Frame):
         except ValueError:
             print("All values must be floats")
             exit()
+
 
 
 if __name__ == "__main__":

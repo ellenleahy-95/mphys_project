@@ -36,7 +36,7 @@ class SourceInput(object):
      def massClick(self):
          self.mass = self.massIn.get()
          self.addToSources(self.mass)
-         #clears the entry field
+         # clears the entry field
          self.massIn.delete(first=0,last=1000)
 
      def fileClick(self):
@@ -62,12 +62,10 @@ class SourceInput(object):
             tempArray.append(self.assignType(self.sourceMasses[i]))
             self.starTable.append(tempArray)
             i += 1
-         print(self.starTable)
          return self.starTable
 
      def addToTable(self, star, variable):
          self.starTable[star].append(variable)
-         print(self.starTable)
 
      def assignType(self, starMass):
         if starMass <= 2:

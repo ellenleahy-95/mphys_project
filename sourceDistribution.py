@@ -1,11 +1,16 @@
 import tkinter as tk   # python3
 import numpy as np
 import random
+import math
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from sourceInput import SourceInput
 
 class SourceDistribution(object):
 
     def __init__(self, app, master):
         self._app = app
+
         self.distOptions = ["random", "evenly distributed"]
         self.dist = tk.StringVar(master)
 
@@ -23,10 +28,27 @@ class SourceDistribution(object):
         distribution = self.dist.get()
         return distribution
 
-    def distributeRandomly(self, size):
-        sizeArray = np.arange(0.0, size, 0.01)
-        x = random.choice(sizeArray)
-        y = random.choice(sizeArray)
-        print(x)
-        print(y)
-        return x,y
+    def createRandomXYZ(self, size):
+        phi = np.random.uniform(low=0, high=2*math.pi)
+        costheta = np.random.uniform(low=-1, high=1)
+        theta = math.acos(costheta)
+        u = np.random.uniform(low=0, high=1)
+        r = size/2 * math.pow(u, 1/3)
+
+        x = r * math.sin(theta) * math.cos(phi)
+        y = r * math.sin(theta) * math.sin(phi)
+        z = r * math.cos(theta)
+
+        return x,y,z
+
+    def distributeRandomly(self, size, table):
+        i = 0
+        while i < len(table):
+            x,y,z = self.createRandomXYZ(size)
+            self.addToTableInput(i, x)
+            self.addToTableInput(i, y)
+            self.addToTableInput(i, z)
+            i += 1
+
+    def addToTableInput(self, star, input):
+        SourceInput.addToTable(self._app._sInput, star, input)
