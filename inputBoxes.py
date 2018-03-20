@@ -28,10 +28,10 @@ class InputBoxes(object):
 
      def getInput(self):
          size = self.sizeIn.get()
-         self._app.strToFloat(size)
+         self._app.strToFloat(size, "Size input error")
 
          distance = self.distanceIn.get()
-         self._app.strToFloat(distance)
+         self._app.strToFloat(distance, "Distance input error")
 
          fieldOfView = self.fofvIn.get()
-         self._app.strToFloat(fieldOfView)
+         self._app.strToFloat(fieldOfView, "Field of View input error")
