@@ -16,8 +16,6 @@ class FieldOfView(object):
         self.height=250
         self.width=300
         self.points = []
-        self.lines = []
-        self.axes = []
         self.borderwidth = 10
         self.axis_color = '#000'
         self.point_color = '#f00'
@@ -26,7 +24,12 @@ class FieldOfView(object):
         self.background_color = '#fff'
 
     def addBorder(self, xmin, xmax, ymin, ymax):
-        self.border = self.fovCanvas.create_rectangle(xmin, -ymin, xmax, -ymax, tags='all',outline=self.border_color,fill=self.background_color)
+        print("Border positions: ")
+        print(xmin)
+        print(ymin)
+        print(xmax)
+        print(ymax)
+        self.border = self.fovCanvas.create_rectangle(xmin, ymin, xmax, ymax, tags='all',outline=self.border_color,fill=self.background_color)
 
     def scaleAndCenter(self):
         # Find the scale factor from size of bounding box
@@ -61,6 +64,12 @@ class FieldOfView(object):
             self.addPoint(coordsX[j], coordsY[j])
             j += 1
         self.scaleAndCenter()
+        print("Coord positions: ")
+        print(min(coordsX))
+        print(min(coordsY))
+        print(max(coordsX))
+        print(max(coordsY))
+        print(self.fovCanvas.find_all())
         print("done")
 
     def createFits(self):
