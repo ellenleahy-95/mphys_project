@@ -49,7 +49,7 @@ class SourceInput(object):
                         self.addToSources(line.rstrip('\n'), "Invalid entry on line " + str(i) +  ". \nAll other values were successfully added")
                         
         except:
-            result = messagebox.showwarning("Invalid Entry", "Please enter a valid file name")
+            result = tk.messagebox.showwarning("Invalid Entry", "Please enter a valid file name")
 
 
     def addToSources(self, massInput, message):
