@@ -4,7 +4,7 @@ from fieldOfView import FieldOfView
 from lightCurve import LightCurve
 from Title import Title
 from sourceInput import SourceInput
-from goButton import GoButton
+from goAndReset import GoAndReset
 from sourceDistribution import SourceDistribution
 from inputBoxes import InputBoxes
 from timeInput import TimeInput
@@ -19,7 +19,7 @@ class MAESTRO(tk.Frame):
         SourceInput(self, master)
         self._fofv = FieldOfView(self, master)
         LightCurve(self, master)
-        GoButton(self, master)
+        GoAndReset(self, master)
         SourceDistribution(self, master)
         self._inputboxes = InputBoxes(self,master)
         TimeInput(self, master)

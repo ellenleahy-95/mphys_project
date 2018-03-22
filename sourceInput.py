@@ -1,6 +1,8 @@
 import tkinter as tk
 
-# TODO add in checks, is it a number etc.
+
+
+GO_FONT = ("Helvetica", 20, "bold")
 
 class SourceInput(object):
 
@@ -9,13 +11,13 @@ class SourceInput(object):
         self._app = app
 
         # array will hold source masses
-        self.sourceMasses = []
+        SourceInput.sourceMasses = []
 
         self.labelMassInput = tk.Label(master, text="Mass:")
         self.labelMassInput.place(relx=0.05, rely=0.6)
 
         # Entry for mass
-        self.massIn = tk.Entry(master, width=10)
+        SourceInput.massIn = tk.Entry(master, width=10)
         self.massIn.place(relx=0.1,rely=0.6)
 
         # Button calls massClick, saves and stores masses
@@ -26,18 +28,23 @@ class SourceInput(object):
         self.labelFileInput = tk.Label(master, text="Mass file name:")
         self.labelFileInput.place(relx=0.05, rely=0.55)
 
-        self.fileIn = tk.Entry(master, width=20)
+        SourceInput.fileIn = tk.Entry(master, width=20)
         self.fileIn.place(relx=0.15, rely=0.55)
 
         self.fButton = tk.Button(master, text="submit", command=self.fileClick)
         self.fButton.place(relx=0.35, rely=0.55)
+
+        self.sButton = tk.Button(master, text="Clear", command=self.clearMasses)
+        self.sButton.place(relx=0.45, rely=0.55)
+        
+
+ 
 
     def massClick(self):
         self.mass = self.massIn.get()
         self.addToSources(self.mass, "mass input error")
         #clears the entry field
         self.massIn.delete(first=0,last=1000)
-        print(self.sourceMasses)
 
     def fileClick(self):
         try:
@@ -50,9 +57,15 @@ class SourceInput(object):
                         
         except:
             result = tk.messagebox.showwarning("Invalid Entry", "Please enter a valid file name")
-
+        self.fileIn.delete(first=0,last=1000)
 
     def addToSources(self, massInput, message):
         #This will only add the mass to your array if it is a float
         if self._app.strToFloat(massInput, message):
             self.sourceMasses.append(massInput)
+
+
+    def clearMasses(self):
+        self.sourceMasses.clear()
+
+

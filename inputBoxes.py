@@ -19,11 +19,11 @@ class InputBoxes(object):
          self.labelFofV.place(relx=0.05,rely=0.85)
 
          # Create entry fields
-         self.sizeIn = tk.Entry(master)
+         InputBoxes.sizeIn = tk.Entry(master)
          self.sizeIn.place(relx=0.19,rely=0.75)
-         self.distanceIn = tk.Entry(master)
+         InputBoxes.distanceIn = tk.Entry(master)
          self.distanceIn.place(relx=0.19,rely=0.8)
-         self.fofvIn = tk.Entry(master)
+         InputBoxes.fofvIn = tk.Entry(master)
          self.fofvIn.place(relx=0.19,rely=0.85)
 
      def getInput(self):
