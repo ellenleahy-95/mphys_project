@@ -50,5 +50,53 @@ class SourceDistribution(object):
             self.addToTableInput(i, z)
             i += 1
 
+    def distributeEvenly(self, size, table):
+        R = size/2
+        rho = len(table)/(4/3 * math.pi * math.pow(R,3))
+        dr = R/100
+        r = 0
+        start = 0
+        while r < R:
+            n = 4/3 * math.pi * rho * (math.pow(r+dr,3) - math.pow(r,3))
+            if int(n) > 0:
+                self.distributeOverShell(r+dr, int(round(n)), start)
+                start += int(round(n))
+                print("n: " + str(n) + "\n int n: " + str(int(round((n)))) + "\n  start: " + str(start))
+            r += dr
+        self.distributeOverShell(R, len(table)-start, start)
+        print(table)
+        print(str(len(table)))
+
+    def distributeOverShell(self, r, n, start):
+        offset = 2/n
+        increment = math.pi * (3 - math.sqrt(5))
+        i = 0
+        for i in range(n):
+            # y = ((i * offset) - 1) + (offset / 2)
+            # r_unit = math.sqrt(1 - pow(y,2))
+            #
+            # phi = ((i + 1) % n) * increment
+            #
+            # x = math.cos(phi) * r_unit
+            # z = math.sin(phi) * r_unit
+            #
+            # self.addToTableInput(i+start, x*r)
+            # self.addToTableInput(i+start, y*r)
+            # self.addToTableInput(i+start, z*r)
+
+            phi = np.random.uniform(low=0, high=2*math.pi)
+            costheta = np.random.uniform(low=-1, high=1)
+            theta = math.acos(costheta)
+
+            x = r * math.sin(theta) * math.cos(phi)
+            y = r * math.sin(theta) * math.sin(phi)
+            z = r * math.cos(theta)
+
+            self.addToTableInput(i+start, x)
+            self.addToTableInput(i+start, y)
+            self.addToTableInput(i+start, z)
+
+            i += 1
+
     def addToTableInput(self, star, input):
         SourceInput.addToTable(self._app._sInput, star, input)

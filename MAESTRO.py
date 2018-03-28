@@ -28,16 +28,15 @@ class MAESTRO(tk.Frame):
     def runMAESTRO(self, clicked):
         self._fofv.createFits()
         size = self._inputboxes.getInput()
-        print(size)
         dist = self._sDist.getDistribution()
         self._sInput.createTable()
         if dist == "random":
             self._sDist.distributeRandomly(size, self._sInput.starTable)
         elif dist == "evenly distributed":
-            print("EVEN!")
+            self._sDist.distributeEvenly(size, self._sInput.starTable)
         else:
             print("Please pick a distribution")
-        self._fofv.plotStars()
+        self._fofv.plotStars(size)
 
     def strToFloat(self, value):
         try:

@@ -53,7 +53,6 @@ class SourceInput(object):
          massInput = self._app.strToFloat(massInput)
          self.sourceMasses.append(massInput)
 
-
      def createTable(self):
          i = 0
          for mass in self.sourceMasses:
