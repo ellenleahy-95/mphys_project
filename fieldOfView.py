@@ -24,11 +24,6 @@ class FieldOfView(object):
         self.background_color = '#fff'
 
     def addBorder(self, xmin, xmax, ymin, ymax):
-        print("Border positions: ")
-        print(xmin)
-        print(ymin)
-        print(xmax)
-        print(ymax)
         self.border = self.fovCanvas.create_rectangle(-xmin, -ymin, xmax, ymax, tags='all',outline=self.border_color,fill=self.background_color)
 
     def scaleAndCenter(self):
@@ -58,8 +53,7 @@ class FieldOfView(object):
             coordsX.append(self._app._sInput.starTable[i][2])
             coordsY.append(self._app._sInput.starTable[i][3])
             i += 1
-        max_vals = [max(coordsX), max(coordsY)]
-        min_vals = [min(coordsX), min(coordsY)]
+
         self.addBorder(size/2*1.1, size/2*1.1, size/2*1.1, size/2*1.1)
         j=0
         while j < len(coordsX):
