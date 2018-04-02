@@ -55,3 +55,24 @@ class SourceInput(object):
         #This will only add the mass to your array if it is a float
         if self._app.strToFloat(massInput, message):
             self.sourceMasses.append(massInput)
+
+    def createTable(self):
+         i = 0
+         for mass in self.sourceMasses:
+            tempArray = []
+            tempArray.append(self.sourceMasses[i])
+            tempArray.append(self.assignType(self.sourceMasses[i]))
+            self.starTable.append(tempArray)
+            i += 1
+         return self.starTable
+
+     def addToTable(self, star, variable):
+         self.starTable[star].append(variable)
+
+     def assignType(self, starMass):
+        if starMass <= 2:
+            return "T-Tauri"
+        elif starMass > 2 and starMass <= 8:
+            return "Medium"
+        elif starMass > 8:
+            return "Massive"

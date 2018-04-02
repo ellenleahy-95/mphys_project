@@ -16,18 +16,28 @@ class MAESTRO(tk.Frame):
         tk.Frame.__init__(self, width=1080, height=700)
 
         Title(self, master)
-        SourceInput(self, master)
+        self._sInput = SourceInput(self, master)
         self._fofv = FieldOfView(self, master)
+        # self._graph = Graph(self)
         LightCurve(self, master)
         GoButton(self, master)
-        SourceDistribution(self, master)
-        self._inputboxes = InputBoxes(self,master)
+        self._sDist = SourceDistribution(self, master)
+        self._inputboxes = InputBoxes(self, master)
         TimeInput(self, master)
 
 
     def runMAESTRO(self, clicked):
         self._fofv.createFits()
-        self._inputboxes.getInput()
+        size = self._inputboxes.getInput()
+        dist = self._sDist.getDistribution()
+        self._sInput.createTable()
+        if dist == "random":
+            self._sDist.distributeRandomly(size, self._sInput.starTable)
+        elif dist == "evenly distributed":
+            self._sDist.distributeEvenly(size, self._sInput.starTable)
+        else:
+            print("Please pick a distribution")
+        self._fofv.plotStars(size)
 
     def strToFloat(self, value, message):
         try:
@@ -39,6 +49,7 @@ class MAESTRO(tk.Frame):
         except ValueError:
             #Gives this error message if entry is not a number
             result = messagebox.showwarning("Invalid Entry", message)
+
 
 
 if __name__ == "__main__":
