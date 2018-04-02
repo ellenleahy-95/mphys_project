@@ -16,6 +16,10 @@ class MAESTRO(tk.Frame):
         tk.Frame.__init__(self, width=1080, height=700)
 
         Title(self, master)
+
+        self.setUpMAESTRO(master)
+
+    def setUpMAESTRO(self, master):
         self._sInput = SourceInput(self, master)
         self._fofv = FieldOfView(self, master)
         # self._graph = Graph(self)
@@ -38,6 +42,7 @@ class MAESTRO(tk.Frame):
         else:
             print("Please pick a distribution")
         self._fofv.plotStars(size)
+
 
     def strToFloat(self, value, message):
         try:

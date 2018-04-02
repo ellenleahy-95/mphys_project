@@ -34,11 +34,9 @@ class SourceInput(object):
 
         self.fButton = tk.Button(master, text="submit", command=self.fileClick)
         self.fButton.place(relx=0.35, rely=0.55)
-
-        self.sButton = tk.Button(master, text="Clear", command=self.clearMasses)
-        self.sButton.place(relx=0.45, rely=0.55)
-
-
+        # 
+        # self.sButton = tk.Button(master, text="Clear", command=self.clearMasses)
+        # self.sButton.place(relx=0.45, rely=0.55)
 
 
     def massClick(self):
@@ -86,6 +84,3 @@ class SourceInput(object):
             return "Medium"
         elif starMass > 8:
             return "Massive"
-
-    def clearMasses(self):
-        self.sourceMasses.clear()

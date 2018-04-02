@@ -10,8 +10,8 @@ class FieldOfView(object):
         self.fovCanvas = tk.Canvas(master, height=300, width=400)
         self.fovCanvas.place(relx=0.05, rely=0.11)
 
-        self.labelfovCanvas = tk.Label(master, text="Field of View")
-        self.labelfovCanvas.place(relx=0.05, rely=0.05)
+        self.labelFovCanvas = tk.Label(master, text="Field of View")
+        self.labelFovCanvas.place(relx=0.05, rely=0.05)
 
         self.height=275
         self.width=275
@@ -70,3 +70,6 @@ class FieldOfView(object):
         hdu = fits.PrimaryHDU(data)
 
         hdu.writeto('test.fits', overwrite=True)
+
+    def clear(self):
+        self.fovCanvas.delete('all')
