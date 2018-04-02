@@ -28,14 +28,11 @@ class InputBoxes(object):
         self.fofvIn.place(relx=0.19,rely=0.85)
 
     def getInput(self):
-        size = self.sizeIn.get()
-        self._app.strToFloat(size, "Size input error")
+        size = self._app.strToFloat(self.sizeIn.get(), "Size input error")
 
-        distance = self.distanceIn.get()
-        self._app.strToFloat(distance, "Distance input error")
+        distance = self._app.strToFloat(self.distanceIn.get(), "Distance input error")
 
-        fieldOfView = self.fofvIn.get()
-        fieldOfView = self._app.strToFloat(fieldOfView)
+        fieldOfView = self._app.strToFloat(self.fofvIn.get(), "Field of view input error")
 
         skySize = self.sizeCalculation(size, distance)
         return skySize
