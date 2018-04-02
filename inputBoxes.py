@@ -29,17 +29,10 @@ class InputBoxes(object):
 
     def getInput(self):
         size = self.sizeIn.get()
-        size = self._app.strToFloat(size)
+        self._app.strToFloat(size, "Size input error")
 
         distance = self.distanceIn.get()
-        distance = self._app.strToFloat(distance)
+        self._app.strToFloat(distance, "Distance input error")
 
         fieldOfView = self.fofvIn.get()
-        fieldOfView = self._app.strToFloat(fieldOfView)
-
-        self.sizeCalculation(size, distance)
-
-
-        # This calculates an angularSize in arcminutes
-    def sizeCalculation(self, s, d):
-        angularSize = ((s*(648000/math.pi))/d)/60
+        self._app.strToFloat(fieldOfView, "Field of View input error")

@@ -8,6 +8,7 @@ from goButton import GoButton
 from sourceDistribution import SourceDistribution
 from inputBoxes import InputBoxes
 from timeInput import TimeInput
+from tkinter import messagebox
 
 class MAESTRO(tk.Frame):
 
@@ -28,12 +29,16 @@ class MAESTRO(tk.Frame):
         self._fofv.createFits()
         self._inputboxes.getInput()
 
-    def strToFloat(self, value):
+    def strToFloat(self, value, message):
         try:
-            return float(value)
+            if float(value) <= 0:
+                #Gives error message if entry is negative
+                result = messagebox.showwarning("Invalid Entry", message)
+            else:   
+                return float(value)
         except ValueError:
-            print("All values must be floats")
-            exit()
+            #Gives this error message if entry is not a number
+            result = messagebox.showwarning("Invalid Entry", message)
 
 
 if __name__ == "__main__":
