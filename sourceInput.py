@@ -11,7 +11,8 @@ class SourceInput(object):
         self._app = app
 
         # array will hold source masses
-        SourceInput.sourceMasses = []
+        self.sourceMasses = []
+        self.starTable = []
 
         self.labelMassInput = tk.Label(master, text="Mass:")
         self.labelMassInput.place(relx=0.05, rely=0.6)
@@ -36,9 +37,9 @@ class SourceInput(object):
 
         self.sButton = tk.Button(master, text="Clear", command=self.clearMasses)
         self.sButton.place(relx=0.45, rely=0.55)
-        
 
- 
+
+
 
     def massClick(self):
         self.mass = self.massIn.get()
@@ -54,18 +55,37 @@ class SourceInput(object):
                     i += 1
                     if not line.startswith('#'):
                         self.addToSources(line.rstrip('\n'), "Invalid entry on line " + str(i) +  ". \nAll other values were successfully added")
-                        
+
         except:
             result = tk.messagebox.showwarning("Invalid Entry", "Please enter a valid file name")
         self.fileIn.delete(first=0,last=1000)
 
     def addToSources(self, massInput, message):
         #This will only add the mass to your array if it is a float
-        if self._app.strToFloat(massInput, message):
-            self.sourceMasses.append(massInput)
+        mass = self._app.strToFloat(massInput, message)
+        if mass:
+            self.sourceMasses.append(mass)
 
+    def createTable(self):
+         i = 0
+         for mass in self.sourceMasses:
+            tempArray = []
+            tempArray.append(self.sourceMasses[i])
+            tempArray.append(self.assignType(self.sourceMasses[i]))
+            self.starTable.append(tempArray)
+            i += 1
+         return self.starTable
+
+    def addToTable(self, star, variable):
+        self.starTable[star].append(variable)
+
+    def assignType(self, starMass):
+        if starMass <= 2:
+            return "T-Tauri"
+        elif starMass > 2 and starMass <= 8:
+            return "Medium"
+        elif starMass > 8:
+            return "Massive"
 
     def clearMasses(self):
         self.sourceMasses.clear()
-
-

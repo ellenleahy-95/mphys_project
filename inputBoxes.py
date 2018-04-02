@@ -1,37 +1,44 @@
 #will add size, distance and FofV button
 
 import tkinter as tk
+import math
 
 
 class InputBoxes(object):
 
 
-     def __init__(self, app, master):
+    def __init__(self, app, master):
 
-         self._app = app
+        self._app = app
 
-         # Create labels
-         self.labelSize = tk.Label(master, text="Size (pc):")
-         self.labelSize.place(relx=0.05,rely=0.75)
-         self.labelDistance = tk.Label(master, text="Distance (pc):")
-         self.labelDistance.place(relx=0.05,rely=0.8)
-         self.labelFofV = tk.Label(master, text="Field of View (arcmin):")
-         self.labelFofV.place(relx=0.05,rely=0.85)
+        # Create labels
+        self.labelSize = tk.Label(master, text="Size (pc):")
+        self.labelSize.place(relx=0.05,rely=0.75)
+        self.labelDistance = tk.Label(master, text="Distance (pc):")
+        self.labelDistance.place(relx=0.05,rely=0.8)
+        self.labelFofV = tk.Label(master, text="Field of View (arcmin):")
+        self.labelFofV.place(relx=0.05,rely=0.85)
 
-         # Create entry fields
-         InputBoxes.sizeIn = tk.Entry(master)
-         self.sizeIn.place(relx=0.19,rely=0.75)
-         InputBoxes.distanceIn = tk.Entry(master)
-         self.distanceIn.place(relx=0.19,rely=0.8)
-         InputBoxes.fofvIn = tk.Entry(master)
-         self.fofvIn.place(relx=0.19,rely=0.85)
+        # Create entry fields
+        InputBoxes.sizeIn = tk.Entry(master)
+        self.sizeIn.place(relx=0.19,rely=0.75)
+        InputBoxes.distanceIn = tk.Entry(master)
+        self.distanceIn.place(relx=0.19,rely=0.8)
+        InputBoxes.fofvIn = tk.Entry(master)
+        self.fofvIn.place(relx=0.19,rely=0.85)
 
-     def getInput(self):
-         size = self.sizeIn.get()
-         self._app.strToFloat(size, "Size input error")
 
-         distance = self.distanceIn.get()
-         self._app.strToFloat(distance, "Distance input error")
+    def getInput(self):
+        size = self._app.strToFloat(self.sizeIn.get(), "Size input error")
 
-         fieldOfView = self.fofvIn.get()
-         self._app.strToFloat(fieldOfView, "Field of View input error")
+        distance = self._app.strToFloat(self.distanceIn.get(), "Distance input error")
+
+        fieldOfView = self._app.strToFloat(self.fofvIn.get(), "Field of view input error")
+
+        skySize = self.sizeCalculation(size, distance)
+        return skySize
+
+    # This calculates an angularSize in arcminutes
+    def sizeCalculation(self, s, d):
+        angularSize = ((s*(648000/math.pi))/d)/60
+        return angularSize
