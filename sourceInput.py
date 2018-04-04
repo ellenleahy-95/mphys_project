@@ -72,7 +72,6 @@ class SourceInput(object):
             tempArray.append(self.checkBinary())
             self.starTable.append(tempArray)
             i += 1
-         print(self.starTable)
          return self.starTable
 
     def addToTable(self, star, variable):
