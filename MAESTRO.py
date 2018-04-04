@@ -47,13 +47,14 @@ class MAESTRO(tk.Frame):
     def strToFloat(self, value, message):
         try:
             if float(value) <= 0:
-                #Gives error message if entry is negative
+                # Gives error message if entry is negative
                 result = messagebox.showwarning("Invalid Entry", message)
             else:
                 return float(value)
         except ValueError:
-            #Gives this error message if entry is not a number
+            # Gives this error message if entry is not a number
             result = messagebox.showwarning("Invalid Entry", message)
+
 
 
 
