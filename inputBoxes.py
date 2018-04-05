@@ -33,17 +33,25 @@ class InputBoxes(object):
 
 
     def getInput(self):
-        while True:
-            size = self._app.strToFloat(self.sizeIn.get(), "Size input error")
-        
-            distance = self._app.strToFloat(self.distanceIn.get(), "Distance input error")
+        results = {}
 
-            fieldOfView = self._app.strToFloat(self.fofvIn.get(), "Field of view input error")
+        size = self._app.strToFloat(self.sizeIn.get(), "Size input error")
 
-            beamSize = self._app.strToFloat(self.beamIn.get(), "Beam size input error")
+        distance = self._app.strToFloat(self.distanceIn.get(), "Distance input error")
 
-        skySize = self.sizeCalculation(size, distance)
-        return skySize
+        fOfV = self._app.strToFloat(self.fofvIn.get(), "Field of view input error")
+
+        beamSize = self._app.strToFloat(self.beamIn.get(), "Beam size input error")
+
+        try:
+            results["skySize"] = self.sizeCalculation(size, distance)
+        except:
+            return False
+
+        results["fieldOfView"] = fOfV
+        results["beam"] = beamSize
+
+        return results
 
     # This calculates an angularSize in arcminutes
     def sizeCalculation(self, s, d):

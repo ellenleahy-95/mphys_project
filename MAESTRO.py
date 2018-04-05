@@ -31,8 +31,16 @@ class MAESTRO(tk.Frame):
 
 
     def runMAESTRO(self, clicked):
-        self._fofv.createFits()
-        size = self._inputboxes.getInput()
+        # self._fofv.createFits()
+        results = self._inputboxes.getInput()
+        try:
+            size = results["skySize"]
+        except:
+            return False
+        fieldOfView = results["fieldOfView"]
+        beamSize = results["beam"]
+        if (type(fieldOfView) != float) or (type(beamSize) != float):
+            return False
         dist = self._sDist.getDistribution()
         self._sInput.createTable()
         if dist == "random":
