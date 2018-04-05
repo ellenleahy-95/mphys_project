@@ -42,13 +42,14 @@ class MAESTRO(tk.Frame):
         if (type(fieldOfView) != float) or (type(beamSize) != float):
             return False
         dist = self._sDist.getDistribution()
+        if not dist:
+            messagebox.showwarning("Warning", "Please enter a distribution")
+            return False
         self._sInput.createTable()
         if dist == "random":
             self._sDist.distributeRandomly(size, self._sInput.starTable)
         elif dist == "evenly distributed":
             self._sDist.distributeEvenly(size, self._sInput.starTable)
-        else:
-            print("Please pick a distribution")
         self._fofv.plotStars(size)
 
 
