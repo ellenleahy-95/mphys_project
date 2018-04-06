@@ -1,6 +1,6 @@
 # MPhys_Project
 
-MAESTRO (Modelling vAriable Emission in STellar RegiOns): A simulator for variability of sources in star forming regions. 
+MAESTRO (Modelling vAriable Emission in STellar RegiOns): A simulator for variability of sources in star forming regions.
 
 ## Getting Started
 
@@ -13,8 +13,8 @@ The simulator uses Python 3 and makes use of astropy.
 
 ### User Inputs
 
-The simulator takes inputs of: 
-* Sources with mass given in terms of solar masses. These can be individually added or submitted in a table with each mass on a new line as the example below shows (lines can be ommitted using #)
+The simulator takes inputs of:
+* Sources with mass given in terms of solar masses. These can be individually added or submitted in a table with each mass on a new line as the example below shows (lines can be omitted using #)
 
 ```
 1
@@ -24,18 +24,18 @@ The simulator takes inputs of:
 
 ```
 
-* Time intervals at which sky images should be modelled. These can be submitted in a table as for source masses. 
+* Time intervals at which sky images should be modelled. These can be submitted in a table as for source masses.
 * Cluster size (parsecs)
 * Distance to cluster (parsecs)
-* Field of view (arcminutes) -  used to produce a sky image. 
-* Selection of source distribution function. Current choices include a random or uniform distribution. 
+* Field of view (arcminutes) -  used to produce a sky image.
+* Selection of source distribution function. Current choices include a random or uniform distribution.
 
 ### Output
 
 MAESTRO will create a table of information for the sources provided as shown below:
 
 ```
-Source Mass    Type    X coordinate    Y coordinate
+Source Mass    Type    Binary    X coordinate    Y coordinate
 
 
 ```
@@ -50,7 +50,7 @@ Additions to this project that may be of use in the future.
 ## Authors
 
 * **Ellen Leahy** - *University of Manchester 4th Year Student - Physics with Astrophysics*
-* **Joe Stickley** - *University of Manchester 4th Year Student - Physics* 
+* **Joe Stickley** - *University of Manchester 4th Year Student - Physics*
 
 See also the list of [contributors](https://github.com/ellenleahy-95/mphys_project/contributors) who participated in this project.
 
@@ -58,4 +58,3 @@ See also the list of [contributors](https://github.com/ellenleahy-95/mphys_proje
 
 * Gary Fuller
 * Adam Avison
-

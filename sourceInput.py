@@ -1,6 +1,5 @@
 import tkinter as tk
-
-
+import random
 
 GO_FONT = ("Helvetica", 20, "bold")
 
@@ -34,7 +33,7 @@ class SourceInput(object):
 
         self.fButton = tk.Button(master, text="submit", command=self.fileClick)
         self.fButton.place(relx=0.35, rely=0.55)
-        # 
+        #
         # self.sButton = tk.Button(master, text="Clear", command=self.clearMasses)
         # self.sButton.place(relx=0.45, rely=0.55)
 
@@ -70,6 +69,7 @@ class SourceInput(object):
             tempArray = []
             tempArray.append(self.sourceMasses[i])
             tempArray.append(self.assignType(self.sourceMasses[i]))
+            tempArray.append(self.checkBinary())
             self.starTable.append(tempArray)
             i += 1
          return self.starTable
@@ -84,3 +84,9 @@ class SourceInput(object):
             return "Medium"
         elif starMass > 8:
             return "Massive"
+
+    def checkBinary(self):
+        if random.uniform(0,1) <= 0.5:
+            return True
+        else:
+            return False
