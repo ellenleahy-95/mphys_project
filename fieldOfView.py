@@ -50,8 +50,8 @@ class FieldOfView(object):
         coordsX, coordsY = [], []
         i = 0
         while i < len(self._app._sInput.starTable):
-            coordsX.append(self._app._sInput.starTable[i][3])
-            coordsY.append(self._app._sInput.starTable[i][4])
+            coordsX.append(self._app._sInput.starTable[i]["XCoord"])
+            coordsY.append(self._app._sInput.starTable[i]["YCoord"])
             i += 1
 
         self.addBorder(size/2*1.1, size/2*1.1, size/2*1.1, size/2*1.1)
