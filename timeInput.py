@@ -27,10 +27,17 @@ class TimeInput(object):
     def fileClick(self):
         try:
             with open(self.fileIn.get()) as self.file:
+                i = 0
                 for line in self.file:
+                    i += 1
                     if not line.startswith('#'):
-                        self._app.strToFloat(line.rstrip('\n'))
-                        self.timeValues.append(line.rstrip('\n'))
+                        self.addTime(line.rstrip('\n'), "Invalid entry on line " + str(i) +  ". \nAll other values were successfully added")
         except:
             result = tk.messagebox.showwarning("Invalid Entry", "Please enter a valid file name")
         self.fileIn.delete(first=0,last=1000)
+
+    def addTime(self, timeInput, message):
+        #This will only add the mass to your array if it is a float
+        time = self._app.strToFloat(timeInput, message)
+        if time:
+            self.timeValues.append(time)

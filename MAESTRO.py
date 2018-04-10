@@ -27,7 +27,7 @@ class MAESTRO(tk.Frame):
         GoAndReset(self, master)
         self._sDist = SourceDistribution(self, master)
         self._inputboxes = InputBoxes(self, master)
-        TimeInput(self, master)
+        self._timeInput = TimeInput(self, master)
 
 
     def runMAESTRO(self, clicked):
@@ -44,6 +44,10 @@ class MAESTRO(tk.Frame):
         dist = self._sDist.getDistribution()
         if not dist:
             messagebox.showwarning("Warning", "Please enter a distribution")
+            return False
+        self.times = self._timeInput.timeValues
+        if not self.times:
+            messagebox.showwarning("Warning", "Please enter a time file")
             return False
         self._sInput.createTable()
         if dist == "random":
@@ -63,8 +67,6 @@ class MAESTRO(tk.Frame):
         except ValueError:
             # Gives this error message if entry is not a number
             result = messagebox.showwarning("Invalid Entry", message)
-
-
 
 
 if __name__ == "__main__":
