@@ -31,6 +31,9 @@ class InputBoxes(object):
         InputBoxes.beamIn = tk.Entry(master)
         self.beamIn.place(relx=0.19, rely=0.9)
 
+        
+
+
 
     def getInput(self):
         results = {}

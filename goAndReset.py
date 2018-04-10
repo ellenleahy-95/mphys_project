@@ -10,21 +10,29 @@ class GoAndReset(SourceInput, TimeInput):
 
     def __init__(self, app, master):
         self._app = app
+
+        #Create a go button which is disabled until all required fields are filled. 
         self.go = tk.Button(master, text="GO!", font=GO_FONT, command=self.goClick)
         self.go.place(relx=0.7, rely=0.9)
 
-        self.reset = tk.Button(master, text="Reset", font=GO_FONT, command= lambda: self.resetClick(master))
+
+        # Create a reset button which is disabled until after the go button has been pressed. 
+        # This will delete all lists that have   been  submitted and clear all entry fields. 
+        self.reset = tk.Button(master, text="Reset", font=GO_FONT, command= lambda: self.resetClick(master), state ='disabled')
         self.reset.place(relx=0.8, rely=0.9)
 
     def goClick(self):
         self._app.runMAESTRO(self)
+        self.reset.config(state='normal')
+        self.go.config(state='disabled')
+
 
     def resetClick(self, master):
-        #Deletes arrays containing masses and times
+        # Deletes arrays containing masses and times
         del self._app._sInput.starTable
         del self._app._sInput.sourceMasses
         # TODO: delete time input once we actually really have it
-        #Clears any text in entry fields
+        # Clears any text in entry fields
         SourceInput.massIn.delete(first=0,last=1000)
         SourceInput.fileIn.delete(first=0,last=1000)
 

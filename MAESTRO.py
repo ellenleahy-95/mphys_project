@@ -19,12 +19,13 @@ class MAESTRO(tk.Frame):
 
         self.setUpMAESTRO(master)
 
+
     def setUpMAESTRO(self, master):
         self._sInput = SourceInput(self, master)
         self._fofv = FieldOfView(self, master)
         # self._graph = Graph(self)
         LightCurve(self, master)
-        GoAndReset(self, master)
+        self._goAndR = GoAndReset(self, master)
         self._sDist = SourceDistribution(self, master)
         self._inputboxes = InputBoxes(self, master)
         TimeInput(self, master)
@@ -63,7 +64,6 @@ class MAESTRO(tk.Frame):
         except ValueError:
             # Gives this error message if entry is not a number
             result = messagebox.showwarning("Invalid Entry", message)
-
 
 
 
