@@ -55,7 +55,7 @@ class MAESTRO(tk.Frame):
         elif dist == "evenly distributed":
             self._sDist.distributeEvenly(size, self._sInput.starTable)
         self._fofv.plotStars(size)
-        self._lCurve.assignFeatures(self._sInput.starTable, times)
+        self._lCurve.assignFeatures()
 
 
     def strToFloat(self, value, message):

@@ -1,4 +1,6 @@
 import tkinter as tk   # python3
+import random
+import numpy as np
 
 class LightCurve(object):
 
@@ -10,20 +12,50 @@ class LightCurve(object):
         self.labelfovCanvas = tk.Label(master, text="Light Curve")
         self.labelfovCanvas.place(relx=0.55, rely=0.05)
 
-    def assignFeatures(self, starTable, timeTable):
+    def assignFeatures(self):
+        self.starTable = self._app._sInput.starTable
+        timeTable = self._app.times
+        for star in self.starTable:
+            if star["binary"] == True:
+                print("Its binary")
+            elif star["binary"] == False:
+                # check if it is a Herbst TI
+                herbst = self.checkFeature(0.4)
+
+                if herbst == True:
+                    self.herbstTypeI(star, timeTable)
 
 
 
-    def herbstTypeI(self):
+    def checkFeature(self, prob):
+        if random.uniform(0,1) <= prob:
+            return True
+        else:
+            return False
+
+    def herbstTypeI(self, star, times):
+        timeScale = random.randint(2,10)
+        amplitude = 0.1
+        fluxes = []
+        i = 0
+        for time in times:
+            fluxes.append(self.sineFeature(amplitude, timeScale, times[i]))
+            i += 1
+        self.addFluxes(star, fluxes)
+
+    def sineFeature(self, amplitude, timeScale, time):
+        flux = amplitude/2 * np.sin(2 * np.pi * time/timeScale) + amplitude
+        return flux
 
 
-
-    def sineFeature(self, ampliture, timescale):
-
-
-
-    def addFluxes(self):
-
+    def addFluxes(self, star, fluxes):
+        # get the table returned by Herbst and actually put this in the star
+        i = 1
+        for flux in fluxes:
+            star["flux"+str(i)] = flux
+            i += 1
+        return star
 
 
     def addZeroFlux(self):
+        return True
