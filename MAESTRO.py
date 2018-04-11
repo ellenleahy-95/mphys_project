@@ -23,7 +23,7 @@ class MAESTRO(tk.Frame):
         self._sInput = SourceInput(self, master)
         self._fofv = FieldOfView(self, master)
         # self._graph = Graph(self)
-        LightCurve(self, master)
+        self._lCurve = LightCurve(self, master)
         GoAndReset(self, master)
         self._sDist = SourceDistribution(self, master)
         self._inputboxes = InputBoxes(self, master)
@@ -51,6 +51,7 @@ class MAESTRO(tk.Frame):
         elif dist == "evenly distributed":
             self._sDist.distributeEvenly(size, self._sInput.starTable)
         self._fofv.plotStars(size)
+        self._lCurve.assignFeatures(self._sInput.starTable, times)
 
 
     def strToFloat(self, value, message):

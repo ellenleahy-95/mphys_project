@@ -9,3 +9,21 @@ class LightCurve(object):
 
         self.labelfovCanvas = tk.Label(master, text="Light Curve")
         self.labelfovCanvas.place(relx=0.55, rely=0.05)
+
+    def assignFeatures(self, starTable, timeTable):
+
+
+
+    def herbstTypeI(self):
+
+
+
+    def sineFeature(self, ampliture, timescale):
+
+
+
+    def addFluxes(self):
+
+
+
+    def addZeroFlux(self):
