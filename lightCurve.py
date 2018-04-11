@@ -19,13 +19,12 @@ class LightCurve(object):
             if star["binary"] == True:
                 print("Its binary")
             elif star["binary"] == False:
-                # check if it is a Herbst TI
+                # check if it is a Herbst Type I
                 herbst = self.checkFeature(0.4)
-
                 if herbst == True:
                     self.herbstTypeI(star, timeTable)
-
-
+                else:
+                    self.addZeroFlux(star, timeTable)
 
     def checkFeature(self, prob):
         if random.uniform(0,1) <= prob:
@@ -57,5 +56,6 @@ class LightCurve(object):
         return star
 
 
-    def addZeroFlux(self):
-        return True
+    def addZeroFlux(self, star, timeTable):
+        fluxes = np.zeros(len(timeTable))
+        self.addFluxes(star, fluxes)
