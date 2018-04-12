@@ -45,9 +45,9 @@ class SourceDistribution(object):
         i = 0
         while i < len(table):
             x,y,z = self.createRandomXYZ(size)
-            self.addToTableInput(i, x)
-            self.addToTableInput(i, y)
-            self.addToTableInput(i, z)
+            self.addToTableInput(i, "XCoord", x)
+            self.addToTableInput(i, "YCoord", y)
+            self.addToTableInput(i, "ZCoord", z)
             i += 1
 
     def distributeEvenly(self, size, table):
@@ -79,10 +79,10 @@ class SourceDistribution(object):
             y = r * math.sin(theta) * math.sin(phi)
             z = r * math.cos(theta)
 
-            self.addToTableInput(i+start, x)
-            self.addToTableInput(i+start, y)
-            self.addToTableInput(i+start, z)
+            self.addToTableInput(i+start, "XCoord", x)
+            self.addToTableInput(i+start, "YCoord", y)
+            self.addToTableInput(i+start, "ZCoord", z)
 
 
-    def addToTableInput(self, star, input):
-        SourceInput.addToTable(self._app._sInput, star, input)
+    def addToTableInput(self, star, inputName, input):
+        SourceInput.addToTable(self._app._sInput, star, inputName, input)

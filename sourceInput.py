@@ -66,16 +66,16 @@ class SourceInput(object):
     def createTable(self):
          i = 0
          for mass in self.sourceMasses:
-            tempArray = []
-            tempArray.append(self.sourceMasses[i])
-            tempArray.append(self.assignType(self.sourceMasses[i]))
-            tempArray.append(self.checkBinary())
-            self.starTable.append(tempArray)
+            tempDict = {}
+            tempDict["mass"] = self.sourceMasses[i]
+            tempDict["type"] = self.assignType(self.sourceMasses[i])
+            tempDict["binary"] = self.checkBinary()
+            self.starTable.append(tempDict)
             i += 1
          return self.starTable
 
-    def addToTable(self, star, variable):
-        self.starTable[star].append(variable)
+    def addToTable(self, star, variableName, variable):
+        self.starTable[star][variableName] = variable
 
     def assignType(self, starMass):
         if starMass <= 2:
