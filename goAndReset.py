@@ -31,7 +31,7 @@ class GoAndReset(SourceInput, TimeInput):
         # Deletes arrays containing masses and times
         del self._app._sInput.starTable
         del self._app._sInput.sourceMasses
-        del self._app.times
+        del self._app._timeInput.timeValues
         # TODO: delete time input once we actually really have it
         # Clears any text in entry fields
         SourceInput.massIn.delete(first=0,last=1000)

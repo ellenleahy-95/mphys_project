@@ -46,8 +46,8 @@ class MAESTRO(tk.Frame):
         if not dist:
             messagebox.showwarning("Warning", "Please enter a distribution")
             return False
-        self.times = self._timeInput.timeValues
-        if not self.times:
+       # self.times = self._timeInput.timeValues
+        if not self._timeInput.timeValues:
             messagebox.showwarning("Warning", "Please enter a time file")
             return False
         self._sInput.createTable()
