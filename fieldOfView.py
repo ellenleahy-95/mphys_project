@@ -65,9 +65,8 @@ class FieldOfView(object):
             j += 1
         self.scaleAndCenter()
 
-    def createFrame(self, size, time):
-        unit = 500
-        frame = np.zeros((unit, unit))
+    def createFrame(self, size, time, unitSize):
+        frame = np.zeros((unitSize, unitSize))
         newX = []
         newY = []
         for value in self.coordsX:
@@ -76,7 +75,7 @@ class FieldOfView(object):
         for value in self.coordsY:
             value += size/2
             newY.append(value)
-        segmentSize = size/unit
+        segmentSize = size/unitSize
         i = 0
         while i < len(newX):
             self.addFluxes(frame, segmentSize, size, i, newX, newY, time)
@@ -106,20 +105,21 @@ class FieldOfView(object):
     def createFits(self, size, beamSize):
         # This function will create the fits file which will be shown in the Field of field of view
         frames = []
+        unitSize = size * 4/beamSize
         time = 1
         while time <= len(self._app._timeInput.timeValues):
-            frame = self.createFrame(size, time)
+            frame = self.createFrame(size, time, int(unitSize))
             frames.append(frame)
             time += 1
         data = np.array(frames, np.int32)
-        convolvedData = self.convolveFits(data, beamSize, size)
+        convolvedData = self.convolveFits(data, beamSize, size, int(unitSize))
         hdu = fits.PrimaryHDU(convolvedData)
 
         hdu.writeto('test_new2.fits', overwrite=True)
 
-    def convolveFits(self, fitsData, beamSize, size):
+    def convolveFits(self, fitsData, beamSize, size, unitSize):
         convolvedData = []
-        pixelSize = size/500
+        pixelSize = size/unitSize
         beamPixel = beamSize/pixelSize
         gauss_kernel = Gaussian2DKernel(beamPixel)
         for frame in fitsData:
