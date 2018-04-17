@@ -69,7 +69,6 @@ class SourceInput(object):
             tempDict = {}
             tempDict["mass"] = self.sourceMasses[i]
             tempDict["type"] = self.assignType(self.sourceMasses[i])
-            tempDict["binary"] = self.checkBinary()
             self.starTable.append(tempDict)
             i += 1
          return self.starTable
@@ -84,9 +83,3 @@ class SourceInput(object):
             return "Medium"
         elif starMass > 8:
             return "Massive"
-
-    def checkBinary(self):
-        if random.uniform(0,1) <= 0.5:
-            return True
-        else:
-            return False

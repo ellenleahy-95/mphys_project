@@ -16,13 +16,18 @@ class LightCurve(object):
         self.starTable = self._app._sInput.starTable
         timeTable = self._app.times
         for star in self.starTable:
+            star["binary"] = self.checkFeature(0.5)
+
             if star["binary"] == True:
-                print("Its binary")
+                self.addZeroFlux(star, timeTable)
             elif star["binary"] == False:
                 # check if it is a Herbst Type I
-                herbst = self.checkFeature(0.4)
-                if herbst == True:
-                    self.herbstTypeI(star, timeTable)
+                if star["type"] == "T-Tauri":
+                    star["herbstTI"] = self.checkFeature(0.4)
+                    if star["herbstTI"] == True:
+                        self.herbstTypeI(star, timeTable)
+                    else:
+                        self.addZeroFlux(star, timeTable)
                 else:
                     self.addZeroFlux(star, timeTable)
 

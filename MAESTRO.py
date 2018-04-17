@@ -31,7 +31,6 @@ class MAESTRO(tk.Frame):
 
 
     def runMAESTRO(self, clicked):
-        # self._fofv.createFits()
         results = self._inputboxes.getInput()
         try:
             size = results["skySize"]
@@ -56,6 +55,7 @@ class MAESTRO(tk.Frame):
             self._sDist.distributeEvenly(size, self._sInput.starTable)
         self._fofv.plotStars(size)
         self._lCurve.assignFeatures()
+        self._fofv.createFits(size, beamSize)
 
 
     def strToFloat(self, value, message):
