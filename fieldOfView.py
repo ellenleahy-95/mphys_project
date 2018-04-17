@@ -66,7 +66,7 @@ class FieldOfView(object):
         self.scaleAndCenter()
 
     def createFrame(self, size, time):
-        unit = 100
+        unit = 500
         frame = np.zeros((unit, unit))
         newX = []
         newY = []
@@ -115,11 +115,11 @@ class FieldOfView(object):
         convolvedData = self.convolveFits(data, beamSize, size)
         hdu = fits.PrimaryHDU(convolvedData)
 
-        hdu.writeto('test_new.fits', overwrite=True)
+        hdu.writeto('test_new2.fits', overwrite=True)
 
     def convolveFits(self, fitsData, beamSize, size):
         convolvedData = []
-        pixelSize = size/100
+        pixelSize = size/500
         beamPixel = beamSize/pixelSize
         gauss_kernel = Gaussian2DKernel(beamPixel)
         for frame in fitsData:

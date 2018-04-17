@@ -18,7 +18,7 @@ class InputBoxes(object):
         self.labelDistance.place(relx=0.05,rely=0.8)
         self.labelFofV = tk.Label(master, text="Field of View (arcmin):")
         self.labelFofV.place(relx=0.05,rely=0.85)
-        self.labelBeamSize = tk.Label(master, text="Beam size (arcmin):")
+        self.labelBeamSize = tk.Label(master, text="Beam size (arcsec):")
         self.labelBeamSize.place(relx=0.05, rely=0.9)
 
         # Create entry fields
@@ -42,6 +42,7 @@ class InputBoxes(object):
         fOfV = self._app.strToFloat(self.fofvIn.get(), "Field of view input error")
 
         beamSize = self._app.strToFloat(self.beamIn.get(), "Beam size input error")
+        beamSize = beamSize/60
 
         try:
             results["skySize"] = self.sizeCalculation(size, distance)
