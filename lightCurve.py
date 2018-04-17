@@ -14,7 +14,7 @@ class LightCurve(object):
 
     def assignFeatures(self):
         self.starTable = self._app._sInput.starTable
-        timeTable = self._app.times
+        timeTable = self._app._timeInput.timeValues
         for star in self.starTable:
             star["binary"] = self.checkFeature(0.5)
 

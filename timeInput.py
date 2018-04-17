@@ -32,9 +32,11 @@ class TimeInput(object):
                     i += 1
                     if not line.startswith('#'):
                         self.addTime(line.rstrip('\n'), "Invalid entry on line " + str(i) +  ". \nAll other values were successfully added")
+            self.fileIn.config(state="disabled")
+            self.fButton.config(state="disabled")
         except:
             result = tk.messagebox.showwarning("Invalid Entry", "Please enter a valid file name")
-        self.fileIn.delete(first=0,last=1000)
+            self.fileIn.delete(first=0,last=1000)
 
     def addTime(self, timeInput, message):
         #This will only add the mass to your array if it is a float

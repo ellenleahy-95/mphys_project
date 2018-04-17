@@ -19,12 +19,13 @@ class MAESTRO(tk.Frame):
 
         self.setUpMAESTRO(master)
 
+
     def setUpMAESTRO(self, master):
         self._sInput = SourceInput(self, master)
         self._fofv = FieldOfView(self, master)
         # self._graph = Graph(self)
         self._lCurve = LightCurve(self, master)
-        GoAndReset(self, master)
+        self._goAndR = GoAndReset(self, master)
         self._sDist = SourceDistribution(self, master)
         self._inputboxes = InputBoxes(self, master)
         self._timeInput = TimeInput(self, master)
@@ -38,14 +39,14 @@ class MAESTRO(tk.Frame):
             return False
         fieldOfView = results["fieldOfView"]
         beamSize = results["beam"]
-        if (type(fieldOfView) != float) or (type(beamSize) != float):
+        if type(fieldOfView) != float:
             return False
         dist = self._sDist.getDistribution()
         if not dist:
             messagebox.showwarning("Warning", "Please enter a distribution")
             return False
-        self.times = self._timeInput.timeValues
-        if not self.times:
+
+        if not self._timeInput.timeValues:
             messagebox.showwarning("Warning", "Please enter a time file")
             return False
         self._sInput.createTable()

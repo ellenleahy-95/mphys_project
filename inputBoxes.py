@@ -32,6 +32,9 @@ class InputBoxes(object):
         self.beamIn.place(relx=0.19, rely=0.9)
 
 
+
+
+
     def getInput(self):
         results = {}
 
@@ -42,7 +45,11 @@ class InputBoxes(object):
         fOfV = self._app.strToFloat(self.fofvIn.get(), "Field of view input error")
 
         beamSize = self._app.strToFloat(self.beamIn.get(), "Beam size input error")
-        beamSize = beamSize/60
+
+        try:
+            beamSize = beamSize/60
+        except:
+            return False
 
         try:
             results["skySize"] = self.sizeCalculation(size, distance)
