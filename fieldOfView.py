@@ -48,8 +48,15 @@ class FieldOfView(object):
         # Move to center the image on the canvas
         self.fovCanvas.move('all', self.width/1.5, self.height/1.7)
 
-    def addPoint(self, x, y):
-        self.points.append(self.fovCanvas.create_oval(x, y, x, y, tags='all', fill=self.point_color))
+    def addPoint(self, x, y, star, size):
+        tag = "star" + str(star)
+        self.points.append(self.fovCanvas.create_oval(x-(size/100), y+(size/100), x+(size/100), y-(size/100), tags=('all',tag), fill=self.border_color, activefill=self.point_color))
+        callback = lambda event, tag=tag: self.onStarClick(event, tag)
+        self.fovCanvas.tag_bind(tag, '<Button-1>', callback)
+
+    def onStarClick(self, event, tag):
+        star = tag[4:]
+        self._app._lCurve.plotLightCurve(int(star))
 
     def plotStars(self, size):
         i = 0
@@ -61,7 +68,7 @@ class FieldOfView(object):
         self.addBorder(size/2*1.1, size/2*1.1, size/2*1.1, size/2*1.1)
         j=0
         while j < len(self.coordsX):
-            self.addPoint(self.coordsX[j], self.coordsY[j])
+            self.addPoint(self.coordsX[j], self.coordsY[j], j, size)
             j += 1
         self.scaleAndCenter()
 

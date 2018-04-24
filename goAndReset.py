@@ -11,13 +11,13 @@ class GoAndReset(SourceInput, TimeInput):
     def __init__(self, app, master):
         self._app = app
 
-        #Create a go button 
+        #Create a go button
         self.go = tk.Button(master, text="GO!", font=GO_FONT, command=self.goClick)
         self.go.place(relx=0.7, rely=0.9)
 
 
-        # Create a reset button which is disabled until after the go button has been pressed. 
-        # This will delete all lists that have   been  submitted and clear all entry fields. 
+        # Create a reset button which is disabled until after the go button has been pressed.
+        # This will delete all lists that have   been  submitted and clear all entry fields.
         self.reset = tk.Button(master, text="Reset", font=GO_FONT, command= lambda: self.resetClick(master), state ="disabled")
         self.reset.place(relx=0.8, rely=0.9)
 
@@ -42,6 +42,7 @@ class GoAndReset(SourceInput, TimeInput):
         InputBoxes.fofvIn.delete(first=0,last=1000)
 
         FieldOfView.clear(self._app._fofv)
+        self._app._lCurve.clearLightCurve()
 
         self._app.setUpMAESTRO(master)
 
