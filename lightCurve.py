@@ -41,14 +41,15 @@ class LightCurve(object):
         timeScale = random.randint(2,10)
         amplitude = 0.1
         fluxes = []
+        phase = random.uniform(0, 2*np.pi)
         i = 0
         for time in times:
-            fluxes.append(self.sineFeature(amplitude, timeScale, times[i]))
+            fluxes.append(self.sineFeature(amplitude, timeScale, times[i], phase))
             i += 1
         self.addFluxes(star, fluxes)
 
-    def sineFeature(self, amplitude, timeScale, time):
-        flux = amplitude/2 * np.sin(2 * np.pi * time/timeScale) + amplitude
+    def sineFeature(self, amplitude, timeScale, time, phase):
+        flux = amplitude/2 * np.sin(2 * np.pi * time/timeScale + phase) + amplitude
         return flux
 
 
