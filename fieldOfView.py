@@ -4,6 +4,16 @@ import os
 from astropy.io import fits
 from astropy.convolution import convolve, Gaussian2DKernel, Tophat2DKernel
 from astropy.modeling.models import Gaussian2D
+#Set up matplotlib and use set of plot parameters
+import matplotlib.pyplot as plt
+from astropy.visualization import astropy_mpl_style
+from astropy.wcs import WCS
+plt.style.use(astropy_mpl_style)
+
+from astropy.utils.data import get_pkg_data_filename
+
+import PIL
+from PIL import Image
 
 class FieldOfView(object):
 
@@ -14,13 +24,13 @@ class FieldOfView(object):
 
         self.labelFovCanvas = tk.Label(master, text="Field of View")
         self.labelFovCanvas.place(relx=0.05, rely=0.05)
-
+ 
         self.height=275
         self.width=275
         self.points = []
         self.borderwidth = 10
         self.axis_color = '#000'
-        self.point_color = '#f00'
+        self.point_color = '#fff'
         self.border_color = '#000'
         self.line_color = '#00f'
         self.background_color = '#fff'
@@ -29,34 +39,37 @@ class FieldOfView(object):
         self.coordsY = []
 
     def addBorder(self, xmin, xmax, ymin, ymax):
-        self.border = self.fovCanvas.create_rectangle(-xmin, -ymin, xmax, ymax, tags='all',outline=self.border_color,fill=self.background_color)
+        self.border = self.fovCanvas.create_rectangle(-xmin, -ymin, xmax, ymax, tags='plot',outline=self.border_color)
 
     def scaleAndCenter(self):
         # Find the scale factor from size of bounding box
-        bb = self.fovCanvas.bbox('all')
+        bb = self.fovCanvas.bbox('plot')
         bbwidth = bb[2] - bb[0]
         bbheight = bb[3] - bb[1]
         while((bbheight < self.height-1 or bbheight > self.height+1) and (bbwidth < self.width-1 or bbwidth > self.width+1)):
             xscale = self.width / bbwidth
             yscale = self.height / bbheight
             # Scale accordingly
-            self.fovCanvas.scale('all', 0, 0, xscale, yscale)
-            bb = self.fovCanvas.bbox('all')
+            self.fovCanvas.scale('plot', 0, 0, xscale, yscale)
+            bb = self.fovCanvas.bbox('plot')
             bbwidth = bb[2] - bb[0]
             bbheight = bb[3] - bb[1]
 
         # Move to center the image on the canvas
-        self.fovCanvas.move('all', self.width/1.5, self.height/1.7)
-
+        print('scaled')
+        self.fovCanvas.move('plot', self.width/2, self.height/2)
+        print('moved')
     def addPoint(self, x, y):
-        self.points.append(self.fovCanvas.create_oval(x, y, x, y, tags='all', fill=self.point_color))
+        self.points.append(self.fovCanvas.create_oval(x, y, x, y,tags='plot', fill=self.point_color))
 
-    def plotStars(self, size):
+    def getCoords(self, size):
         i = 0
         while i < len(self._app._sInput.starTable):
             self.coordsX.append(self._app._sInput.starTable[i]["XCoord"])
             self.coordsY.append(self._app._sInput.starTable[i]["YCoord"])
             i += 1
+
+    def plotStars(self, size):
 
         self.addBorder(size/2*1.1, size/2*1.1, size/2*1.1, size/2*1.1)
         j=0
@@ -126,6 +139,62 @@ class FieldOfView(object):
             smoothed_data_gauss = convolve(frame, gauss_kernel)
             convolvedData.append(smoothed_data_gauss)
         return convolvedData
+
+    def plotImage(self, size):
+        hdu_list = fits.open('test_new2.fits', memmap=True)
+        
+        scidata = hdu_list[0].data
+
+        hdu_list.close()
+        image_data = scidata[0,:,:]
+        #image_data = image_data*(-1)
+        plt.imsave("tempimgfile.png", image_data, cmap= "autumn", origin="lower")
+        #Resize image to fit canvas
+        img = Image.open("tempimgfile.png")
+        wpercent = (self.width/ float(img.size[0]))
+        hsize = int((float(img.size[1]) * float(wpercent)))
+        img = img.resize((self.width, hsize), PIL.Image.ANTIALIAS)
+        img.save("resized_image.png")
+
+        hold = tk.PhotoImage(file="resized_image.png")
+        #Put image in to canvas
+        self.fovCanvas.create_image(0,0,image=hold, anchor ='nw')
+
+        #Plot stars over image and scale and center them
+        self.plotStars(size)
+
+#Section to put slider in and change image
+  #     self.xscale = tk.Scale(self.fovCanvas, from_=1, to=len(self._app._timeInput.timeValues), orient=tk.HORIZONTAL, command=self.changeImage)
+   #     self.xscale.place(relx=0.1, rely=0.01)
+
+   #     self.xscale.bind("<ButtonRelease>", self.changeImage)
+
+
+        plt.imshow(image_data, origin = "lower")
+        plt.show()
+
+ #   def changeImage(self, *args):
+#        time = self.xscale.get() -1
+        
+#        hdu_list = fits.open('test_new2.fits', memmap=True)
+        
+#        scidata = hdu_list[0].data
+
+#        hdu_list.close()
+#        image_data = scidata[time,:,:]
+        
+#        plt.imsave("tempimgfile.png", image_data, cmap= "autumn", origin="lower")
+        #Resize image to fit canvas
+#        img = Image.open("tempimgfile.png")
+#        wpercent = (self.width/ float(img.size[0]))
+#        hsize = int((float(img.size[1]) * float(wpercent)))
+#        img = img.resize((self.width, hsize), PIL.Image.ANTIALIAS)
+#        img.save("resized_image.png")
+
+#        hold = tk.PhotoImage(file="resized_image.png")
+#        self.fovCanvas.create_image(0,0,image=hold, anchor ='nw') 
+        
+
 
     def clear(self):
         self.fovCanvas.delete('all')
