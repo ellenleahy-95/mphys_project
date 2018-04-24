@@ -97,4 +97,3 @@ class LightCurve(object):
 
     def clearLightCurve(self):
         self.lightCurve.get_tk_widget().destroy()
-        print("here")
