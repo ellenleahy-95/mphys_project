@@ -82,7 +82,7 @@ class LightCurve(object):
         fig = Figure()
         fig.set_size_inches(5.8, 4.3, forward=True)
         self.a = fig.add_subplot(111)
-        self.a.scatter(times, fluxes)
+        self.a.plot(times, fluxes, '-o')
 
         self.a.set_title ("Light Curve for star " + str(star+1), fontsize=16)
         self.a.set_ylabel("Flux", fontsize=14)
