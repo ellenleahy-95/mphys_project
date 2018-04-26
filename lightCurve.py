@@ -68,10 +68,7 @@ class LightCurve(object):
         self.addFluxes(star, fluxes)
 
     def plotLightCurve(self, star):
-        try:
-            self.lightCurve.get_tk_widget().destroy()
-        except:
-            pass
+        self.clearLightCurve()
         fluxes = []
         times = self._app._timeInput.timeValues
         i = 1
@@ -80,20 +77,25 @@ class LightCurve(object):
             i += 1
 
         fig = Figure()
-        fig.set_size_inches(5.8, 4.3, forward=True)
+        fig.set_size_inches(5, 4, forward=True)
         self.a = fig.add_subplot(111)
         self.a.plot(times, fluxes, '-x')
 
-        self.a.set_title ("Light Curve for star " + str(star+1), fontsize=16)
-        self.a.set_ylabel("Flux", fontsize=14)
-        self.a.set_xlabel("Time (days)", fontsize=14)
+        self.a.set_title ("Light Curve for star " + str(star+1), fontsize=11)
+        self.a.set_ylabel("Flux", fontsize=10)
+        self.a.set_xlabel("Time (days)", fontsize=10)
         for tick in self.a.get_yticklabels():
             tick.set_rotation(65)
         fig.align_xlabels()
+        self.a.tick_params(axis='x', labelsize=8)
+        self.a.tick_params(axis='y', labelsize=8)
 
         self.lightCurve = FigureCanvasTkAgg(fig, master=self._app)
-        self.lightCurve.get_tk_widget().place(relx=0.5, rely=0.05)
+        self.lightCurve.get_tk_widget().place(relx=0.4, rely=0.05)
         self.lightCurve.draw()
 
     def clearLightCurve(self):
-        self.lightCurve.get_tk_widget().destroy()
+        try:
+            self.lightCurve.get_tk_widget().destroy()
+        except:
+            pass

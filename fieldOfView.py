@@ -122,7 +122,7 @@ class FieldOfView(object):
         convolvedData = self.convolveFits(data, beamSize, size, int(unitSize))
         hdu = fits.PrimaryHDU(convolvedData)
 
-        hdu.writeto('test_new2.fits', overwrite=True)
+        hdu.writeto('test.fits', overwrite=True)
 
     def convolveFits(self, fitsData, beamSize, size, unitSize):
         convolvedData = []
