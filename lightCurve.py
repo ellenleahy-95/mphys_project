@@ -1,13 +1,15 @@
 import tkinter as tk   # python3
 import random
 import numpy as np
+import matplotlib
+matplotlib.use('TkAgg')
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
 
 class LightCurve(object):
 
     def __init__(self, app, master):
         self._app = app
-        self.lightCurve = tk.Canvas(master, bg="red", height=250, width=300)
-        self.lightCurve.place(relx=0.55, rely=0.1)
 
         self.labelfovCanvas = tk.Label(master, text="Light Curve")
         self.labelfovCanvas.place(relx=0.55, rely=0.05)
@@ -64,3 +66,34 @@ class LightCurve(object):
     def addZeroFlux(self, star, timeTable):
         fluxes = np.zeros(len(timeTable))
         self.addFluxes(star, fluxes)
+
+    def plotLightCurve(self, star):
+        try:
+            self.lightCurve.get_tk_widget().destroy()
+        except:
+            pass
+        fluxes = []
+        times = self._app._timeInput.timeValues
+        i = 1
+        while i <= len(times):
+            fluxes.append(self.starTable[star]["flux"+str(i)])
+            i += 1
+
+        fig = Figure()
+        fig.set_size_inches(5.8, 4.3, forward=True)
+        self.a = fig.add_subplot(111)
+        self.a.plot(times, fluxes, '-x')
+
+        self.a.set_title ("Light Curve for star " + str(star+1), fontsize=16)
+        self.a.set_ylabel("Flux", fontsize=14)
+        self.a.set_xlabel("Time (days)", fontsize=14)
+        for tick in self.a.get_yticklabels():
+            tick.set_rotation(65)
+        fig.align_xlabels()
+
+        self.lightCurve = FigureCanvasTkAgg(fig, master=self._app)
+        self.lightCurve.get_tk_widget().place(relx=0.5, rely=0.05)
+        self.lightCurve.draw()
+
+    def clearLightCurve(self):
+        self.lightCurve.get_tk_widget().destroy()
