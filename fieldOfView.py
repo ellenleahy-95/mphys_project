@@ -8,7 +8,7 @@ from astropy.visualization import astropy_mpl_style
 #Set up matplotlib and use set of plot parameters
 import matplotlib.pyplot as plt
 import PIL
-from PIL import Image
+#from PIL import Image
 
 class FieldOfView(object):
 
@@ -161,7 +161,7 @@ class FieldOfView(object):
 
         plt.imsave("tempimgfile.png", image_data, cmap= "autumn", origin="lower")
         #Resize image to fit canvas
-        img = Image.open("tempimgfile.png")
+        img = PIL.Image.open("tempimgfile.png")
         wpercent = (self.width/ float(img.size[0]))
         hsize = int((float(img.size[1]) * float(wpercent)))
         img = img.resize((self.width, hsize), PIL.Image.ANTIALIAS)
