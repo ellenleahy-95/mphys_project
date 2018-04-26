@@ -137,7 +137,6 @@ class FieldOfView(object):
 
         hdu.writeto('test.fits', overwrite=True)
 
-
         #This function convolves the model points with a gaussian of width corresponding to the user input beam width
     def convolveFits(self, fitsData, beamSize, size, unitSize):
         convolvedData = []
@@ -171,13 +170,11 @@ class FieldOfView(object):
         hold = tk.PhotoImage(file="resized_image.png")
         label = tk.Label(image=hold)
         label.image = hold #keep a reference
-       
+        #Put image in to canvas
         self.fovCanvas.create_image(0, 0, image=hold, anchor ='center')
         
         #Plot stars over image and scale and center them
         self.plotStars(size)
-
-        
 
     def clear(self):
         self.fovCanvas.delete('all')
