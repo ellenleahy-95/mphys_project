@@ -99,3 +99,8 @@ class LightCurve(object):
             self.lightCurve.get_tk_widget().destroy()
         except:
             pass
+
+    def showText(self):
+
+
+    def checkFeatures(self):
