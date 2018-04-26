@@ -49,7 +49,7 @@ Additions to this project that may be of use in the future.
 
 ## Authors
 
-* **Ellen Leahy** - *University of Manchester 4th Year Student - Physics with Astrophysics*
+* **Ellen Leahy** - *University of Manchester 4th Year Student - Physics with Astrophysics* - *(Project manager)*
 * **Joe Stickley** - *University of Manchester 4th Year Student - Physics*
 
 See also the list of [contributors](https://github.com/ellenleahy-95/mphys_project/contributors) who participated in this project.
