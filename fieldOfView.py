@@ -7,8 +7,7 @@ from astropy.modeling.models import Gaussian2D
 from astropy.visualization import astropy_mpl_style
 #Set up matplotlib and use set of plot parameters
 import matplotlib.pyplot as plt
-import PIL
-#from PIL import Image
+from PIL import Image
 
 class FieldOfView(object):
 
@@ -157,17 +156,17 @@ class FieldOfView(object):
 
         hdu_list.close()
         image_data = scidata[0,:,:]
-        image_data = image_data.T
-
-        plt.imsave("tempimgfile.png", image_data, cmap= "autumn", origin="lower")
+        image_data = image_data.T  #Image_data is transposed to match with points plotted on canvas
+        #Saves the plot as temporary file, and sets the colourmap
+        plt.imsave("tempimgfile.png", image_data, cmap= "Spectral", origin="lower")
         #Resize image to fit canvas
-        img = PIL.Image.open("tempimgfile.png")
+        img = Image.open("tempimgfile.png")
         wpercent = (self.width/ float(img.size[0]))
         hsize = int((float(img.size[1]) * float(wpercent)))
-        img = img.resize((self.width, hsize), PIL.Image.ANTIALIAS)
-        img.save("resized_image.png")
+        img = img.resize((self.width, hsize), Image.ANTIALIAS)
+        img.save("resized_image.gif")
 
-        hold = tk.PhotoImage(file="resized_image.png")
+        hold = tk.PhotoImage(file="resized_image.gif")
         label = tk.Label(image=hold)
         label.image = hold #keep a reference
         #Put image in to canvas
@@ -175,6 +174,10 @@ class FieldOfView(object):
         
         #Plot stars over image and scale and center them
         self.plotStars(size)
+
+        #delete temporary saved files
+        os.remove("tempimgfile.png")
+        os.remove("resized_image.gif")
 
     def clear(self):
         self.fovCanvas.delete('all')
