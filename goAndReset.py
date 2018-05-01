@@ -1,10 +1,16 @@
 import tkinter as tk   # python3
+from tabulate import tabulate
 GO_FONT = ("Helvetica", 20, "bold")
 
 from inputBoxes import InputBoxes
 from sourceInput import SourceInput
 from timeInput import TimeInput
 from fieldOfView import FieldOfView
+from astropy.table import Table, Column
+from astropy.io import ascii
+import numpy as np
+
+
 
 class GoAndReset(SourceInput, TimeInput):
 
@@ -47,3 +53,24 @@ class GoAndReset(SourceInput, TimeInput):
         self._app.setUpMAESTRO(master)
 
         # TimeInput.fileIn.delete(first=0,last=1000)
+
+    def writeOutput(self):
+        starTable = self._app._sInput.starTable
+        results = self._app._inputboxes.getInput()
+        outputList = results.items()
+        table = outputList
+        #f = open('table.txt', 'w')
+        #f.write(tabulate(table))
+        #f.write(tabulate(starTable))
+        #f.close()
+
+        #Table(starTable)
+        data = Table(starTable)
+        #f = open("Table2.txt" , "w")
+        #f.write(data)
+        #f.close()
+        data.write('table.txt', format='ascii', overwrite = True)
+        
+
+        
+        

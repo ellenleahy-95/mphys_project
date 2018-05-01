@@ -57,6 +57,7 @@ class MAESTRO(tk.Frame):
         self._fofv.plotStars(size)
         self._lCurve.assignFeatures()
         self._fofv.createFits(size, beamSize)
+        self._goAndR.writeOutput()
 
 
     def strToFloat(self, value, message):
