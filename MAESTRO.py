@@ -13,7 +13,7 @@ from tkinter import messagebox
 class MAESTRO(tk.Frame):
 
     def __init__(self, master=None):
-        tk.Frame.__init__(self, width=1080, height=700)
+        tk.Frame.__init__(self, width=1230, height=800)
 
         Title(self, master)
 

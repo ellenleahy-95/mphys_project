@@ -11,8 +11,6 @@ class LightCurve(object):
     def __init__(self, app, master):
         self._app = app
 
-        self.labelfovCanvas = tk.Label(master, text="Light Curve")
-        self.labelfovCanvas.place(relx=0.55, rely=0.05)
 
     def assignFeatures(self):
         self.starTable = self._app._sInput.starTable
