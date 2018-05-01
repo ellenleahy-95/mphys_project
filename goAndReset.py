@@ -43,6 +43,7 @@ class GoAndReset(SourceInput, TimeInput):
 
         FieldOfView.clear(self._app._fofv)
         self._app._lCurve.clearLightCurve()
+        self._app._lCurve.clearText()
 
         self._app.setUpMAESTRO(master)
 

@@ -19,7 +19,6 @@ class LightCurve(object):
         timeTable = self._app._timeInput.timeValues
         for star in self.starTable:
             star["binary"] = self.checkFeature(0.5)
-
             if star["binary"] == True:
                 star["eclipse"] = self.checkFeature(0.4)
                 if star["eclipse"] == True:
@@ -85,6 +84,8 @@ class LightCurve(object):
 
     def plotLightCurve(self, star):
         self.clearLightCurve()
+        self.clearText()
+        self.showText(star)
         fluxes = []
         times = self._app._timeInput.timeValues
         i = 1
@@ -116,7 +117,26 @@ class LightCurve(object):
         except:
             pass
 
-    def showText(self):
+    def showText(self, star):
+        features = self.checkFeatureTrue(star)
 
+        self.T = tk.Text(master=self._app, height=30, width=30)
+        self.T.place(relx=0.86, rely=0.1)
+        self.T.insert(tk.END, "Variable features:\n")
+        i = 0
+        while i < len(features):
+            self.T.insert(tk.END, features[i]+"\n")
+            i += 1
 
-    def checkFeatures(self):
+    def checkFeatureTrue(self, star):
+        features = []
+        for key in self.starTable[star]:
+            if self.starTable[star][key] == True and key != "mass":
+                features.append(key)
+        return features
+
+    def clearText(self):
+        try:
+            self.T.delete('1.0', tk.END)
+        except:
+            pass
