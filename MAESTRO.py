@@ -13,7 +13,7 @@ from tkinter import messagebox
 class MAESTRO(tk.Frame):
 
     def __init__(self, master=None):
-        tk.Frame.__init__(self, width=1080, height=700)
+        tk.Frame.__init__(self, width=1230, height=800)
 
         Title(self, master)
 
@@ -54,9 +54,11 @@ class MAESTRO(tk.Frame):
             self._sDist.distributeRandomly(size, self._sInput.starTable)
         elif dist == "evenly distributed":
             self._sDist.distributeEvenly(size, self._sInput.starTable)
-        self._fofv.plotStars(size)
+
+        self._fofv.getCoords(size)
         self._lCurve.assignFeatures()
         self._fofv.createFits(size, beamSize)
+        self._fofv.plotImage(size)
         self._goAndR.writeOutput()
 
 

@@ -49,6 +49,7 @@ class GoAndReset(SourceInput, TimeInput):
 
         FieldOfView.clear(self._app._fofv)
         self._app._lCurve.clearLightCurve()
+        self._app._lCurve.clearText()
 
         self._app.setUpMAESTRO(master)
 
@@ -57,19 +58,33 @@ class GoAndReset(SourceInput, TimeInput):
     def writeOutput(self):
         starTable = self._app._sInput.starTable
         results = self._app._inputboxes.getInput()
+        timeValues = self._app._timeInput.timeValues
         outputList = results.items()
-        table = outputList
-        #f = open('table.txt', 'w')
-        #f.write(tabulate(table))
-        #f.write(tabulate(starTable))
-        #f.close()
+        #output = Table(outputList)
 
-        #Table(starTable)
-        data = Table(starTable)
-        #f = open("Table2.txt" , "w")
-        #f.write(data)
-        #f.close()
-        data.write('table.txt', format='ascii', overwrite = True)
+        #Create table from starTable
+        t = Table(starTable, masked = True)
+
+        #rename flux columns to include time at which this flux applies
+        i=1
+        while i <= len(timeValues):
+            t.rename_column('flux' + str(i), 'Flux' + str(i) + ': t = ' + str(timeValues[i-1]))
+            #t['flux' + str(i)].description = timeValues[i]
+            i +=1
+
+        #Set order for table columns
+
+        newOrder = ['mass','type','binary','herbstTI','eclipse','XCoord','YCoord','ZCoord']
+        j=1
+        while j <= len(timeValues):
+            newOrder.append('Flux' + str(j) + ': t = ' + str(timeValues[j-1]))
+            j +=1
+
+        newOrder = tuple(newOrder)
+        data = t[newOrder]
+
+        #Writes the completed table out to a file
+        data.write('table.csv', format='csv', overwrite = True)
         
 
         

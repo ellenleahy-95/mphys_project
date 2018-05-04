@@ -11,15 +11,12 @@ class LightCurve(object):
     def __init__(self, app, master):
         self._app = app
 
-        self.labelfovCanvas = tk.Label(master, text="Light Curve")
-        self.labelfovCanvas.place(relx=0.55, rely=0.05)
 
     def assignFeatures(self):
         self.starTable = self._app._sInput.starTable
         timeTable = self._app._timeInput.timeValues
         for star in self.starTable:
             star["binary"] = self.checkFeature(0.5)
-
             if star["binary"] == True:
                 star["herbstTI"] = False
                 star["eclipse"] = self.checkFeature(0.4)
@@ -87,10 +84,9 @@ class LightCurve(object):
         self.addFluxes(star, fluxes)
 
     def plotLightCurve(self, star):
-        try:
-            self.lightCurve.get_tk_widget().destroy()
-        except:
-            pass
+        self.clearLightCurve()
+        self.clearText()
+        self.showText(star)
         fluxes = []
         times = self._app._timeInput.timeValues
         i = 1
@@ -99,20 +95,49 @@ class LightCurve(object):
             i += 1
 
         fig = Figure()
-        fig.set_size_inches(5.8, 4.3, forward=True)
+        fig.set_size_inches(5, 4, forward=True)
         self.a = fig.add_subplot(111)
         self.a.plot(times, fluxes, '-x')
 
-        self.a.set_title ("Light Curve for star " + str(star+1), fontsize=16)
-        self.a.set_ylabel("Flux", fontsize=14)
-        self.a.set_xlabel("Time (days)", fontsize=14)
+        self.a.set_title ("Light Curve for star " + str(star+1), fontsize=11)
+        self.a.set_ylabel("Flux", fontsize=10)
+        self.a.set_xlabel("Time (days)", fontsize=10)
         for tick in self.a.get_yticklabels():
             tick.set_rotation(65)
         fig.align_xlabels()
+        self.a.tick_params(axis='x', labelsize=8)
+        self.a.tick_params(axis='y', labelsize=8)
 
         self.lightCurve = FigureCanvasTkAgg(fig, master=self._app)
-        self.lightCurve.get_tk_widget().place(relx=0.5, rely=0.05)
+        self.lightCurve.get_tk_widget().place(relx=0.4, rely=0.05)
         self.lightCurve.draw()
 
     def clearLightCurve(self):
-        self.lightCurve.get_tk_widget().destroy()
+        try:
+            self.lightCurve.get_tk_widget().destroy()
+        except:
+            pass
+
+    def showText(self, star):
+        features = self.checkFeatureTrue(star)
+
+        self.T = tk.Text(master=self._app, height=30, width=30)
+        self.T.place(relx=0.86, rely=0.1)
+        self.T.insert(tk.END, "Variable features:\n")
+        i = 0
+        while i < len(features):
+            self.T.insert(tk.END, features[i]+"\n")
+            i += 1
+
+    def checkFeatureTrue(self, star):
+        features = []
+        for key in self.starTable[star]:
+            if self.starTable[star][key] == True and key != "mass":
+                features.append(key)
+        return features
+
+    def clearText(self):
+        try:
+            self.T.delete('1.0', tk.END)
+        except:
+            pass

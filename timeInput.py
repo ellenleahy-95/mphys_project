@@ -32,6 +32,7 @@ class TimeInput(object):
                     i += 1
                     if not line.startswith('#'):
                         self.addTime(line.rstrip('\n'), "Invalid entry on line " + str(i) +  ". \nAll other values were successfully added")
+            self.timeValues.sort()
             self.fileIn.config(state="disabled")
             self.fButton.config(state="disabled")
         except:

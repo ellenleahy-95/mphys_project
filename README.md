@@ -6,7 +6,7 @@ MAESTRO (Modelling vAriable Emission in STellar RegiOns): A simulator for variab
 
 ### Prerequisites
 
-The simulator uses Python 3 and makes use of astropy.
+The simulator uses Python 3 and makes use of: astropy, pillow and matplotlib.
 
 
 ## Using MAESTRO
