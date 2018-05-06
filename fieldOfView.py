@@ -147,7 +147,9 @@ class FieldOfView(object):
             convolvedData.append(smoothed_data_gauss)
         return convolvedData
 
-    def plotImage(self, size):
+    def plotImage(self, time):
+        results = self._app._inputboxes.getInput()
+        size = results["skySize"] 
    
         #Open the fits file created
         hdu_list = fits.open('test.fits', memmap=True)
@@ -155,7 +157,7 @@ class FieldOfView(object):
         scidata = hdu_list[0].data
 
         hdu_list.close()
-        image_data = scidata[0,:,:]
+        image_data = scidata[int(time),:,:]
         image_data = image_data.T  #Image_data is transposed to match with points plotted on canvas
         #Saves the plot as temporary file, and sets the colourmap
         plt.imsave("tempimgfile.png", image_data, cmap= "Spectral", origin="lower")
@@ -175,9 +177,31 @@ class FieldOfView(object):
         #Plot stars over image and scale and center them
         self.plotStars(size)
 
+        #add slider to the canvas
+        #self.createSlider()
+
         #delete temporary saved files
         os.remove("tempimgfile.png")
         os.remove("resized_image.gif")
+
+
+    #add slider to the canvas and plot the first slice
+    def createSlider(self, size):
+        timeValues = self._app._timeInput.timeValues
+        self.slider = tk.Scale(self.fovCanvas, from_=0, to=len(timeValues)-1, orient=tk.HORIZONTAL, command = self.changeImage)
+        self.slider.place(relx=0, rely=0)
+
+        #plot first slice
+        self.plotImage(0)
+
+        #time = int(slider.get())
+        #self.changeImage(size, time)
+
+    #when slider is moved this will clear the canvas and change the image
+    def changeImage(self, time):
+        self.fovCanvas.delete("all")
+        self.plotImage(time)
+        
 
     def clear(self):
         self.fovCanvas.delete('all')

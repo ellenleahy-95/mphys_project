@@ -58,7 +58,7 @@ class MAESTRO(tk.Frame):
         self._fofv.getCoords(size)
         self._lCurve.assignFeatures()
         self._fofv.createFits(size, beamSize)
-        self._fofv.plotImage(size)
+        self._fofv.createSlider(size)
         
 
 
