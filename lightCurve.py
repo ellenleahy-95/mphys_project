@@ -18,7 +18,7 @@ class LightCurve(object):
         for star in self.starTable:
             star["binary"] = self.checkFeature(0.5)
             if star["binary"] == True:
-                star["eclipse"] = self.checkFeature(0.4)
+                star["eclipse"] = self.checkFeature(0.03)
                 if star["eclipse"] == True:
                     self.binaryEclipse(star, timeTable)
                 else:
@@ -52,7 +52,7 @@ class LightCurve(object):
         self.addFluxes(star, fluxes)
 
     def binaryEclipse(self, star, times):
-        timeScale = random.uniform(0.1, 1000)
+        timeScale = random.uniform(1/24, 1095.75)
         amplitude = random.uniform(0.1, 1)
         fluxes = []
         phase = random.uniform(0, 2*np.pi)
