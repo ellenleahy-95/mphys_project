@@ -187,21 +187,34 @@ class FieldOfView(object):
 
     #add slider to the canvas and plot the first slice
     def createSlider(self, size):
-        timeValues = self._app._timeInput.timeValues
-        self.slider = tk.Scale(self.fovCanvas, from_=0, to=len(timeValues)-1, orient=tk.HORIZONTAL, command = self.changeImage)
-        self.slider.place(relx=0, rely=0)
+        self.timeValues = self._app._timeInput.timeValues
+        self.slider = tk.Scale(master=self._app, from_=0, to=len(self.timeValues)-1, orient=tk.HORIZONTAL, command = self.changeImage)
+        self.slider.place(relx=0.05, rely=0.07)
 
         #plot first slice
         self.plotImage(0)
 
-        #time = int(slider.get())
-        #self.changeImage(size, time)
-
-    #when slider is moved this will clear the canvas and change the image
+    #when slider is moved this will clear the canvas and change the image, the 'time' comes from slider value
     def changeImage(self, time):
         self.fovCanvas.delete("all")
         self.plotImage(time)
-        
+        self.showTime(time)
 
-    def clear(self):
+    #create text box to show what time in days is being displayed
+    def showTime(self, time):
+        #timeValues = self._app._timeInput.timeValues
+        displayTime = self.timeValues[int(time)]
+
+        self.dispT = tk.Text(master=self._app, height=5, width=12)
+        self.dispT.place(relx=0.2, rely=0.07)
+        self.dispT.insert(tk.END, "Time (days):\n" + str(displayTime))
+ 
+        
+    #to be called by reset and delete everything needed
+    def clearAll(self):
         self.fovCanvas.delete('all')
+        self.slider.destroy()
+        try:
+            self.dispT.delete('1.0',tk.END)
+        except:
+            pass

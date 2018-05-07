@@ -73,7 +73,6 @@ class MAESTRO(tk.Frame):
             # Gives this error message if entry is not a number
             result = messagebox.showwarning("Invalid Entry", message)
 
-
 if __name__ == "__main__":
     app = MAESTRO()
     app.pack()

@@ -34,16 +34,18 @@ class GoAndReset(SourceInput, TimeInput):
         del self._app._timeInput.timeValues
         # TODO: delete time input once we actually really have it
         # Clears any text in entry fields
-        SourceInput.massIn.delete(first=0,last=1000)
-        SourceInput.fileIn.delete(first=0,last=1000)
+        SourceInput.massIn.delete(first=0,last=tk.END)
+        SourceInput.fileIn.delete(first=0,last=tk.END)
 
-        InputBoxes.sizeIn.delete(first=0,last=1000)
-        InputBoxes.distanceIn.delete(first=0,last=1000)
-        InputBoxes.fofvIn.delete(first=0,last=1000)
+        InputBoxes.sizeIn.delete(first=0,last=tk.END)
+        InputBoxes.distanceIn.delete(first=0,last=tk.END)
+        InputBoxes.fofvIn.delete(first=0,last=tk.END)
 
-        FieldOfView.clear(self._app._fofv)
+        self._app._fofv.clearAll()
         self._app._lCurve.clearLightCurve()
         self._app._lCurve.clearText()
+
+        
 
         self._app.setUpMAESTRO(master)
 
