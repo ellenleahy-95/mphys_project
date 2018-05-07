@@ -63,7 +63,7 @@ class LightCurve(object):
         self.addFluxes(star, fluxes)
 
     def sineFeature(self, amplitude, timeScale, time, phase):
-        flux = amplitude/2 * np.sin(2 * np.pi * time/timeScale + phase) + amplitude
+        flux = amplitude/2 * np.sin(2 * np.pi * time/timeScale + phase) + amplitude/2
         return flux
 
 
