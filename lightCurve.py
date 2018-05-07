@@ -18,7 +18,7 @@ class LightCurve(object):
         for star in self.starTable:
             star["binary"] = self.checkFeature(0.5)
             if star["binary"] == True:
-                star["eclipse"] = self.checkFeature(0.4)
+                star["eclipse"] = self.checkFeature(0.03)
                 if star["eclipse"] == True:
                     self.binaryEclipse(star, timeTable)
                 else:
