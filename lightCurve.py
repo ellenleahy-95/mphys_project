@@ -100,7 +100,7 @@ class LightCurve(object):
         self.a.plot(times, fluxes, '-x')
 
         self.a.set_title ("Light Curve for star " + str(star+1), fontsize=11)
-        self.a.set_ylabel("Flux", fontsize=10)
+        self.a.set_ylabel("Change in Magnitude", fontsize=10)
         self.a.set_xlabel("Time (days)", fontsize=10)
         for tick in self.a.get_yticklabels():
             tick.set_rotation(65)
