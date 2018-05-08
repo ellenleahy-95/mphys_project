@@ -5,4 +5,4 @@ class Title(object):
     def __init__(self, app, master):
         self._app = app
         self.tempTitle = tk.Label(master, text="WELCOME TO MAESTRO", font=TITLE_FONT)
-        self.tempTitle.place(relx=0.2, rely=0)
+        self.tempTitle.place(relx=0.5, rely=0, anchor = tk.N)
