@@ -56,6 +56,8 @@ class InputBoxes(object):
         except:
             return False
 
+        results["size"] = size
+        results["distance"] = distance
         results["fieldOfView"] = fOfV
         results["beam"] = beamSize
 

@@ -5,6 +5,11 @@ from inputBoxes import InputBoxes
 from sourceInput import SourceInput
 from timeInput import TimeInput
 from fieldOfView import FieldOfView
+from astropy.table import Table, Column
+from astropy.io import ascii
+import numpy as np
+
+
 
 class GoAndReset(SourceInput, TimeInput):
 
@@ -50,3 +55,49 @@ class GoAndReset(SourceInput, TimeInput):
         self._app.setUpMAESTRO(master)
 
         # TimeInput.fileIn.delete(first=0,last=1000)
+
+    def writeOutput(self):
+        starTable = self._app._sInput.starTable
+        results = self._app._inputboxes.getInput()
+        timeValues = self._app._timeInput.timeValues
+
+        #Set the beamsize back to arcseconds to be stored
+        results["beam"] = results["beam"]*60
+      
+       #writing file out to contain input parameters
+        nameList = []
+        dictList = []
+        for key, value in results.items():
+            nameList.append(key)
+            dictList.append([value])
+
+        inputs = Table(dictList,names=nameList)
+
+        #write inputs of beamsize etc in to file
+        inputs.write("inputs.csv", format="csv", overwrite = True)
+
+        #Create table from starTable
+        t = Table(starTable, masked = True)
+
+        #rename flux columns to include time at which this flux applies
+        i=1
+        while i <= len(timeValues):
+            t.rename_column("flux" + str(i), "Flux" + str(i) + ": t = " + str(timeValues[i-1]))
+            i +=1
+
+        #Set order for table columns
+        newOrder = ['mass','type','binary','eclipse','herbstTI','XCoord','YCoord','ZCoord']
+        j=1
+        while j <= len(timeValues):
+            newOrder.append("Flux" + str(j) + ": t = " + str(timeValues[j-1]))
+            j +=1
+
+        newOrder = tuple(newOrder)
+        data = t[newOrder]
+
+        #Writes the completed table out to a file
+        data.write("table.csv", format="csv", overwrite = True)
+        
+
+        
+        
