@@ -192,14 +192,19 @@ class SourceInput(object):
                     j += 1
                 i += 1
             k = 0
+            newProbs = []
             while k < len(self.probs):
-                self.probs[k] = self.probs[k]/sum(self.probs)
+                prob = self.probs[k]/sum(self.probs)
+                newProbs.append(prob)
                 k += 1
+            self.probs = newProbs
         return bins[0], bins[1]
 
     def kroupaDist(self, minVal, maxVal, number):
         self.setKroupaVals()
         minBox, maxBox = self.setDistProb(minVal, maxVal)
+        if maxBox == 5:
+            maxBox = 4
         i = minBox
         j = 0
         count = 0
@@ -208,7 +213,7 @@ class SourceInput(object):
             count += self.setMasses(stars, self.range[i], minVal, maxVal)
             i += 1
             j += 1
-        if count > 0:
+        if count < number:
             warningMessage = "You entered a mass value not at the edge of a range. Please note only " + str(count) + " stars were used. Cick cancel to reenter."
             if messagebox.askokcancel("Warning", warningMessage) == False:
                 self.sourceMasses = []

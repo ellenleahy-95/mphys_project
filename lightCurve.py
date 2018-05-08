@@ -63,7 +63,7 @@ class LightCurve(object):
         self.addFluxes(star, fluxes)
 
     def sineFeature(self, amplitude, timeScale, time, phase):
-        flux = amplitude/2 * np.sin(2 * np.pi * time/timeScale + phase) + amplitude
+        flux = amplitude/2 * np.sin(2 * np.pi * time/timeScale + phase) + amplitude/2
         return flux
 
 
@@ -97,7 +97,7 @@ class LightCurve(object):
         self.a.plot(times, fluxes, '-x')
 
         self.a.set_title ("Light Curve for star " + str(star+1), fontsize=11)
-        self.a.set_ylabel("Flux", fontsize=10)
+        self.a.set_ylabel("Change in Magnitude", fontsize=10)
         self.a.set_xlabel("Time (days)", fontsize=10)
         for tick in self.a.get_yticklabels():
             tick.set_rotation(65)
