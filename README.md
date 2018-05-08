@@ -45,16 +45,27 @@ If not all mass ranges are used the percentages are re-assigned to not include g
 
 ### Output
 
-MAESTRO will create a table of information for the sources provided as shown below:
+MAESTRO will create a table of information for the sources provided named 'table.csv' as shown below:
 
 ```
-Source Mass    Type    Binary    X coordinate    Y coordinate
+Source Mass    Type    Binary    Eclipse    Herbst Type I    X coordinate    Y coordinate    Z coordinate    Flux1: t = __....
 
 
 ```
 
+Where 'type' categorises them in to groups based on mass, and the subsequent features are assigned using a statistical approach to determine the variable features of the star. For these attributes the column values will display True or False.
 
-On running a model sky image will be created and displayed on the left which can be viewed at the times as input. A light curve for each source can be viewed on the right.
+Another table is created named 'inputs.csv', containing the parameters input by the user as well as the calculated angular size on the sky for use in the future when reproducing the model. The structure of this is shown below:
+
+```
+skySize    size    distance    fieldOfView    beam
+
+
+```
+These files will be overwritten when each model is run.
+
+
+On running a model sky image will be created and displayed on the left which can be viewed at the times as input. A light curve for each source can be viewed on the right by clicking on points on top of the model image.
 
 ## Ideas for the future
 

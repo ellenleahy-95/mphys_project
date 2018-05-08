@@ -19,11 +19,16 @@ class LightCurve(object):
             star["binary"] = self.checkFeature(0.5)
             if star["binary"] == True:
                 star["eclipse"] = self.checkFeature(0.03)
+<<<<<<< HEAD
+=======
+                star["herbstTI"] = False
+>>>>>>> 8a8b277f5e2c469032036ac191c48fea3e0ee202
                 if star["eclipse"] == True:
                     self.binaryEclipse(star, timeTable)
                 else:
                     self.addZeroFlux(star, timeTable)
             elif star["binary"] == False:
+                star["eclipse"] = False
                 # check if it is a Herbst Type I
                 if star["type"] == "T-Tauri":
                     star["herbstTI"] = self.checkFeature(0.4)
@@ -32,6 +37,7 @@ class LightCurve(object):
                     else:
                         self.addZeroFlux(star, timeTable)
                 else:
+                    star["herbstTI"] = False
                     self.addZeroFlux(star, timeTable)
 
     def checkFeature(self, prob):
@@ -52,7 +58,7 @@ class LightCurve(object):
         self.addFluxes(star, fluxes)
 
     def binaryEclipse(self, star, times):
-        timeScale = random.uniform(0.1, 1000)
+        timeScale = random.uniform(1/24, 1095.75)
         amplitude = random.uniform(0.1, 1)
         fluxes = []
         phase = random.uniform(0, 2*np.pi)
