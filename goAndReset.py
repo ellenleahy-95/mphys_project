@@ -58,8 +58,11 @@ class GoAndReset(SourceInput, TimeInput):
         starTable = self._app._sInput.starTable
         results = self._app._inputboxes.getInput()
         timeValues = self._app._timeInput.timeValues
+
+        #Set the beamsize back to arcseconds to be stored
+        results["beam"] = results["beam"]*60
       
-       #writing file out to contain input parameters (note beam is now in arcseconds)
+       #writing file out to contain input parameters
         nameList = []
         dictList = []
         for key, value in results.items():
@@ -81,7 +84,7 @@ class GoAndReset(SourceInput, TimeInput):
             i +=1
 
         #Set order for table columns
-        newOrder = ['mass','type','binary','herbstTI','eclipse','XCoord','YCoord','ZCoord']
+        newOrder = ['mass','type','binary','eclipse','herbstTI','XCoord','YCoord','ZCoord']
         j=1
         while j <= len(timeValues):
             newOrder.append("Flux" + str(j) + ": t = " + str(timeValues[j-1]))
