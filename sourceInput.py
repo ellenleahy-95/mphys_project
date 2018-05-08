@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 import random
 import numpy as np
 
@@ -194,29 +195,43 @@ class SourceInput(object):
             while k < len(self.probs):
                 self.probs[k] = self.probs[k]/sum(self.probs)
                 k += 1
+        return bins[0], bins[1]
 
     def kroupaDist(self, minVal, maxVal, number):
         self.setKroupaVals()
-        self.setDistProb(minVal, maxVal)
-        
-        # vLowStars = round(vLow*number)
-        # lowStars = round(low*number)
-        # mediumStars = round(medium*number)
-        # highStars = round(high*number)
-        # vHighStars = round(vHigh*number)
-        #
-        # self.setMasses(vLowStars, (minVal,0.08))
-        # self.setMasses(lowStars, (0.08,0.5))
-        # self.setMasses(mediumStars, (0.5,1))
-        # self.setMasses(highStars, (1,8))
-        # self.setMasses(vHighStars, (8,maxVal))
+        minBox, maxBox = self.setDistProb(minVal, maxVal)
+        i = minBox
+        j = 0
+        count = 0
+        while i <= maxBox:
+            stars = round(self.probs[j]*number)
+            count += self.setMasses(stars, self.range[i], minVal, maxVal)
+            i += 1
+            j += 1
+        if count > 0:
+            warningMessage = "You entered a mass value not at the edge of a range. Please note only " + str(count) + " stars were used. Cick cancel to reenter."
+            if messagebox.askokcancel("Warning", warningMessage) == False:
+                self.sourceMasses = []
+                self.range = []
+                self.probs = []
+                self.maxMass.delete(0, tk.END)
+                self.maxMass.config(fg = 'black')
+                self.minMass.delete(0, tk.END)
+                self.minMass.config(fg = 'black')
+                self.starNumber.delete(0, tk.END)
+                self.starNumber.config(fg = 'black')
 
-    def setMasses(self, stars, massRange):
+
+    def setMasses(self, stars, massRange, minMass, maxMass):
         i = 0
+        count = 0
         while i < stars:
             mass = random.uniform(massRange[0], massRange[1])
-            self.addToSources(mass, "Please enter a valid mass")
+            if mass >= minMass and mass <= maxMass:
+                self.addToSources(mass, "Please enter a valid mass")
+                count += 1
             i += 1
+        return count
 
     def getMassDistribution(self):
         distribution = self.massDist.get()
