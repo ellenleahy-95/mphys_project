@@ -61,7 +61,7 @@ class GoAndReset(SourceInput, TimeInput):
 
         #Set the beamsize back to arcseconds to be stored
         results["beam"] = results["beam"]*60
-      
+
        #writing file out to contain input parameters
         nameList = []
         dictList = []
@@ -84,7 +84,7 @@ class GoAndReset(SourceInput, TimeInput):
             i +=1
 
         #Set order for table columns
-        newOrder = ['mass','type','binary','eclipse','herbstTI','XCoord','YCoord','ZCoord']
+        newOrder = ['mass','type','binary','eclipse','herbstTI','flare','XCoord','YCoord','ZCoord']
         j=1
         while j <= len(timeValues):
             newOrder.append("Flux" + str(j) + ": t = " + str(timeValues[j-1]))
@@ -95,7 +95,3 @@ class GoAndReset(SourceInput, TimeInput):
 
         #Writes the completed table out to a file
         data.write("table.csv", format="csv", overwrite = True)
-        
-
-        
-        
