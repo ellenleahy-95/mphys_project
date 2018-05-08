@@ -19,10 +19,7 @@ class LightCurve(object):
             star["binary"] = self.checkFeature(0.5)
             if star["binary"] == True:
                 star["eclipse"] = self.checkFeature(0.03)
-<<<<<<< HEAD
-=======
                 star["herbstTI"] = False
->>>>>>> 8a8b277f5e2c469032036ac191c48fea3e0ee202
                 if star["eclipse"] == True:
                     self.binaryEclipse(star, timeTable)
                 else:
