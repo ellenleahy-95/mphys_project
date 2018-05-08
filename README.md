@@ -24,7 +24,20 @@ The simulator takes inputs of:
 
 ```
 
-* Time intervals at which sky images should be modelled. These can be submitted in a table as for source masses.
+* You can also use the IMF to distribute masses over a given range for a given number of masses. The ranges and percentage of stars in each range is shown below:
+
+```
+Range of masses in solar masses     percentage
+0.01 - 0.08                             37
+0.08 - 0.5                              48
+0.5 - 1                                 8.9
+1 - 8                                   5.7
+8 - 120                                 0.4
+```
+
+If not all mass ranges are used the percentages are re-assigned to not include groups that aren't used. If a min/max mass is used within a range then the whole range is used but stars below/above the min/max mass are deleted. This reduces the total number of stars and a warning is shown.
+
+* Time intervals at which sky images should be modeled. These can be submitted in a table as for source masses.
 * Cluster size (parsecs)
 * Distance to cluster (parsecs)
 * Field of view (arcminutes) -  used to produce a sky image.
