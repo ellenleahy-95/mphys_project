@@ -128,6 +128,11 @@ class LightCurve(object):
         while i < len(features):
             self.T.insert(tk.END, features[i]+"\n")
             i += 1
+        self.T.insert(tk.END, "\nMass: %.4f" % self.starTable[star]["mass"])
+        self.T.insert(tk.END, "\nType: " + str(self.starTable[star]["type"]))
+        self.T.insert(tk.END, "\nX coordinate: %.4f" % self.starTable[star]["XCoord"])
+        self.T.insert(tk.END, "\nY coordinate: %.4f" % self.starTable[star]["YCoord"])
+        self.T.insert(tk.END, "\nZ coordinate: %.4f" % self.starTable[star]["ZCoord"])
 
     def checkFeatureTrue(self, star):
         features = []
