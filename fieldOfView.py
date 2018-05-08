@@ -14,7 +14,7 @@ class FieldOfView(object):
     def __init__(self, app, master):
         self._app = app
         self.fovCanvas = tk.Canvas(master, height=300, width=400)
-        self.fovCanvas.place(relx=0.05, rely=0.95, anchor=tk.SW)
+        self.fovCanvas.place(relx=0.05, rely=0.38)
 
         #self.labelFovCanvas = tk.Label(master, text="Field of View")
         #self.labelFovCanvas.place(relx=0.05, rely=0.05)
@@ -189,7 +189,7 @@ class FieldOfView(object):
     def createSlider(self, size):
         self.timeValues = self._app._timeInput.timeValues
         self.slider = tk.Scale(master=self._app, from_=0, to=len(self.timeValues)-1, orient=tk.HORIZONTAL, command = self.changeImage)
-        self.slider.place(relx=0.05, rely=0.07)
+        self.slider.place(relx=0.05, rely=0.8)
 
         #plot first slice
         self.plotImage(0)
@@ -206,7 +206,7 @@ class FieldOfView(object):
         displayTime = self.timeValues[int(time)]
 
         self.dispT = tk.Text(master=self._app, height=5, width=12)
-        self.dispT.place(relx=0.2, rely=0.07)
+        self.dispT.place(relx=0.2, rely=0.8)
         self.dispT.insert(tk.END, "Time (days):\n" + str(displayTime))
  
         
