@@ -13,23 +13,23 @@ class InputBoxes(object):
 
         # Create labels
         self.labelSize = tk.Label(master, text="Size (pc):")
-        self.labelSize.place(relx=0.05,rely=0.75)
+        self.labelSize.place(relx=0.05,rely=0.10)
         self.labelDistance = tk.Label(master, text="Distance (pc):")
-        self.labelDistance.place(relx=0.05,rely=0.8)
+        self.labelDistance.place(relx=0.05,rely=0.15)
         self.labelFofV = tk.Label(master, text="Field of View (arcmin):")
-        self.labelFofV.place(relx=0.05,rely=0.85)
+        self.labelFofV.place(relx=0.05,rely=0.20)
         self.labelBeamSize = tk.Label(master, text="Beam size (arcsec):")
-        self.labelBeamSize.place(relx=0.05, rely=0.9)
+        self.labelBeamSize.place(relx=0.05, rely=0.25)
 
         # Create entry fields
         InputBoxes.sizeIn = tk.Entry(master)
-        self.sizeIn.place(relx=0.19,rely=0.75)
+        self.sizeIn.place(relx=0.19,rely=0.10)
         InputBoxes.distanceIn = tk.Entry(master)
-        self.distanceIn.place(relx=0.19,rely=0.8)
+        self.distanceIn.place(relx=0.19,rely=0.15)
         InputBoxes.fofvIn = tk.Entry(master)
-        self.fofvIn.place(relx=0.19,rely=0.85)
+        self.fofvIn.place(relx=0.19,rely=0.20)
         InputBoxes.beamIn = tk.Entry(master)
-        self.beamIn.place(relx=0.19, rely=0.9)
+        self.beamIn.place(relx=0.19, rely=0.25)
 
 
 

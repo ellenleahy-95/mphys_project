@@ -14,10 +14,10 @@ class FieldOfView(object):
     def __init__(self, app, master):
         self._app = app
         self.fovCanvas = tk.Canvas(master, height=300, width=400)
-        self.fovCanvas.place(relx=0.05, rely=0.11)
+        self.fovCanvas.place(relx=0.05, rely=0.95, anchor=tk.SW)
 
-        self.labelFovCanvas = tk.Label(master, text="Field of View")
-        self.labelFovCanvas.place(relx=0.05, rely=0.05)
+        #self.labelFovCanvas = tk.Label(master, text="Field of View")
+        #self.labelFovCanvas.place(relx=0.05, rely=0.05)
  
         self.height=275
         self.width=275
