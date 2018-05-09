@@ -27,7 +27,7 @@ class SourceInput(object):
 
         # Button calls massClick, saves and stores masses
         self.sButton = tk.Button(master, text="submit", command=self.massClick)
-        self.sButton.place(relx=0.3, rely=0.125)
+        self.sButton.place(relx=0.32, rely=0.125)
 
         # Label, entry and button for the file input
         self.labelFileInput = tk.Label(master, text="Mass file name:")
@@ -37,7 +37,7 @@ class SourceInput(object):
         self.fileIn.place(relx=0.16, rely=0.075)
 
         self.fButton = tk.Button(master, text="submit", command=self.fileClick)
-        self.fButton.place(relx=0.3, rely=0.075)
+        self.fButton.place(relx=0.32, rely=0.075)
 
         #label for mass distribution options
         self.labelMassInput = tk.Label(master, text="Mass distribution:")
@@ -79,14 +79,14 @@ class SourceInput(object):
 
         #Label for number of stars
         self.labelStarNumber = tk.Label(master, text="Number of stars:")
-        self.labelStarNumber.place(relx=0.44, rely=0.175)
+        self.labelStarNumber.place(relx=0.46, rely=0.175)
 
         # Entry for number of stars
         SourceInput.starNumber = tk.Entry(master, width=10)
-        self.starNumber.place(relx=0.54, rely=0.175)
+        self.starNumber.place(relx=0.56, rely=0.175)
 
         self.massDistButton = tk.Button(master, text="submit", command=self.distributeMass)
-        self.massDistButton.place(relx=0.68, rely=0.175)
+        self.massDistButton.place(relx=0.7, rely=0.175)
 
 
     def onEntryClick(self, event, text, box):

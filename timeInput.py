@@ -13,13 +13,13 @@ class TimeInput(object):
 
         # Label, entry and button for the file input
         self.labelFileInput = tk.Label(master, text="Time file name:")
-        self.labelFileInput.place(relx=0.44, rely=0.075)
+        self.labelFileInput.place(relx=0.4, rely=0.28)
 
         self.fileIn = tk.Entry(master, width=20)
-        self.fileIn.place(relx=0.54, rely=0.075)
+        self.fileIn.place(relx=0.5, rely=0.28)
 
         self.fButton = tk.Button(master, text="submit", command=self.fileClick)
-        self.fButton.place(relx=0.68, rely=0.075)
+        self.fButton.place(relx=0.68, rely=0.28)
 
         # self.sButton = tk.Button(master, text="Clear", command=self.clearTimes)
         # self.sButton.place(relx=0.95, rely=0.55)

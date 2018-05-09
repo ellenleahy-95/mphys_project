@@ -9,4 +9,4 @@ class Title(object):
 
 
         self.names = tk.Label(master, text="Written by Ellen Leahy and Joe Stickley")
-        self.names.place(relx=0.05, rely=0.9,)
+        self.names.place(relx=0.7, rely=0.98,)
