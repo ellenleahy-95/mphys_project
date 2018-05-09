@@ -265,6 +265,6 @@ class SourceInput(object):
         if starMass <= 2:
             return "T-Tauri"
         elif starMass > 2 and starMass <= 8:
-            return "Medium"
+            return "Intermediate"
         elif starMass > 8:
             return "Massive"
