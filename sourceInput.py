@@ -15,43 +15,46 @@ class SourceInput(object):
         self.sourceMasses = []
         self.starTable = []
 
-        self.massDistOptions = ["Kroupa"]
+        self.massDistOptions = ["Kroupa"]  #Store here the options for which form of IMF is to be used. 
         self.massDist = tk.StringVar(master)
 
-        # Label, entry and button for the file input
-        self.labelFileInput = tk.Label(master, text="Mass file name:")
-        self.labelFileInput.place(relx=0.05, rely=0.55)
-
-        SourceInput.fileIn = tk.Entry(master, width=18)
-        self.fileIn.place(relx=0.15, rely=0.55)
-
-        self.fButton = tk.Button(master, text="submit", command=self.fileClick)
-        self.fButton.place(relx=0.30, rely=0.55)
-
         self.labelMassInput = tk.Label(master, text="Mass:")
-        self.labelMassInput.place(relx=0.05, rely=0.6)
+        self.labelMassInput.place(relx=0.05, rely=0.125)
 
-        # Entry for mass
-        SourceInput.massIn = tk.Entry(master, width=10)
-        self.massIn.place(relx=0.15, rely=0.6)
+        # Entry for single mass
+        SourceInput.massIn = tk.Entry(master, width=20)
+        self.massIn.place(relx=0.16,rely=0.125)
 
         # Button calls massClick, saves and stores masses
         self.sButton = tk.Button(master, text="submit", command=self.massClick)
-        self.sButton.place(relx=0.30, rely=0.6)
+        self.sButton.place(relx=0.32, rely=0.125)
 
+        # Label, entry and button for the file input
+        self.labelFileInput = tk.Label(master, text="Mass file name:")
+        self.labelFileInput.place(relx=0.05, rely=0.075)
+
+        SourceInput.fileIn = tk.Entry(master, width=20)
+        self.fileIn.place(relx=0.16, rely=0.075)
+
+        self.fButton = tk.Button(master, text="submit", command=self.fileClick)
+        self.fButton.place(relx=0.32, rely=0.075)
+
+        #label for mass distribution options
         self.labelMassInput = tk.Label(master, text="Mass distribution:")
-        self.labelMassInput.place(relx=0.05, rely=0.65)
+        self.labelMassInput.place(relx=0.05, rely=0.175)
 
+        #mass distribution options
         self.massDistDropDown = tk.OptionMenu(master, self.massDist, *self.massDistOptions)
         self.massDistDropDown.config(width=10)
-        self.massDistDropDown.place(relx=0.15, rely=0.65)
+        self.massDistDropDown.place(relx=0.16, rely=0.175)
 
+        #label for min mass
         self.labelMinMass = tk.Label(master, text="Min mass:")
-        self.labelMinMass.place(relx=0.25, rely=0.65)
+        self.labelMinMass.place(relx=0.3, rely=0.175)
 
-        # Entry for mass
+        # Entry for mass minumum for range
         SourceInput.minMass = tk.Entry(master, width=10)
-        self.minMass.place(relx=0.31, rely=0.65)
+        self.minMass.place(relx=0.37, rely=0.175)
         self.minMass.insert(0, 'min=0.01')
         self.minMass.config(fg = 'grey')
         minClick = lambda event: self.onEntryClick(event, "min=0.01", self.minMass)
@@ -59,12 +62,13 @@ class SourceInput(object):
         minOut = lambda event: self.onFocusOut(event, "min=0.01", self.minMass)
         self.minMass.bind('<FocusOut>', minOut)
 
+        #Label for max mass
         self.labelMaxMass = tk.Label(master, text="Max mass:")
-        self.labelMaxMass.place(relx=0.25, rely=0.70)
+        self.labelMaxMass.place(relx=0.3, rely=0.225)
 
-        # Entry for mass
+        # Entry for mass maximum for range
         SourceInput.maxMass = tk.Entry(master, width=10)
-        self.maxMass.place(relx=0.31, rely=0.70)
+        self.maxMass.place(relx=0.37, rely=0.225)
         self.maxMass.insert(0, 'max=120')
         self.maxMass.config(fg = 'grey')
         maxClick = lambda event: self.onEntryClick(event, "max=120", self.maxMass)
@@ -72,15 +76,17 @@ class SourceInput(object):
         maxOut = lambda event: self.onFocusOut(event, "max=120", self.maxMass)
         self.maxMass.bind('<FocusOut>', maxOut)
 
-        self.labelStarNumber = tk.Label(master, text="Number of stars:")
-        self.labelStarNumber.place(relx=0.40, rely=0.65)
 
-        # Entry for mass
+        #Label for number of stars
+        self.labelStarNumber = tk.Label(master, text="Number of stars:")
+        self.labelStarNumber.place(relx=0.46, rely=0.175)
+
+        # Entry for number of stars
         SourceInput.starNumber = tk.Entry(master, width=10)
-        self.starNumber.place(relx=0.50, rely=0.65)
+        self.starNumber.place(relx=0.56, rely=0.175)
 
         self.massDistButton = tk.Button(master, text="submit", command=self.distributeMass)
-        self.massDistButton.place(relx=0.60, rely=0.65)
+        self.massDistButton.place(relx=0.7, rely=0.175)
 
 
     def onEntryClick(self, event, text, box):
@@ -265,6 +271,6 @@ class SourceInput(object):
         if starMass <= 2:
             return "T-Tauri"
         elif starMass > 2 and starMass <= 8:
-            return "Medium"
+            return "Intermediate"
         elif starMass > 8:
             return "Massive"

@@ -39,16 +39,18 @@ class GoAndReset(SourceInput, TimeInput):
         del self._app._timeInput.timeValues
         # TODO: delete time input once we actually really have it
         # Clears any text in entry fields
-        SourceInput.massIn.delete(first=0,last=1000)
-        SourceInput.fileIn.delete(first=0,last=1000)
+        SourceInput.massIn.delete(first=0,last=tk.END)
+        SourceInput.fileIn.delete(first=0,last=tk.END)
 
-        InputBoxes.sizeIn.delete(first=0,last=1000)
-        InputBoxes.distanceIn.delete(first=0,last=1000)
-        InputBoxes.fofvIn.delete(first=0,last=1000)
+        InputBoxes.sizeIn.delete(first=0,last=tk.END)
+        InputBoxes.distanceIn.delete(first=0,last=tk.END)
+        InputBoxes.fofvIn.delete(first=0,last=tk.END)
 
-        FieldOfView.clear(self._app._fofv)
+        self._app._fofv.clearAll()
         self._app._lCurve.clearLightCurve()
         self._app._lCurve.clearText()
+
+        
 
         self._app.setUpMAESTRO(master)
 
@@ -61,7 +63,7 @@ class GoAndReset(SourceInput, TimeInput):
 
         #Set the beamsize back to arcseconds to be stored
         results["beam"] = results["beam"]*60
-      
+
        #writing file out to contain input parameters
         nameList = []
         dictList = []
@@ -84,7 +86,7 @@ class GoAndReset(SourceInput, TimeInput):
             i +=1
 
         #Set order for table columns
-        newOrder = ['mass','type','binary','eclipse','herbstTI','XCoord','YCoord','ZCoord']
+        newOrder = ['mass','type','binary','eclipse','herbstTI','flare','XCoord','YCoord','ZCoord']
         j=1
         while j <= len(timeValues):
             newOrder.append("Flux" + str(j) + ": t = " + str(timeValues[j-1]))
@@ -95,7 +97,3 @@ class GoAndReset(SourceInput, TimeInput):
 
         #Writes the completed table out to a file
         data.write("table.csv", format="csv", overwrite = True)
-        
-
-        
-        

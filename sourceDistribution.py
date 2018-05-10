@@ -14,15 +14,18 @@ class SourceDistribution(object):
         self.distOptions = ["random", "evenly distributed"]
         self.dist = tk.StringVar(master)
 
-        labelText = tk.StringVar()
-        labelText.set("Source distribution:")
+        #labelText = tk.StringVar()
+        #labelText.set("Source distribution:")
 
-        labelDir = tk.Label(app, textvariable=labelText, height=4)
-        labelDir.place(relx = 0.48, rely = 0.77)
+        #labelDir = tk.Label(app, textvariable=labelText, height=4)
+        ##labelDir.place(relx = 0.44, rely = 0.125)
+
+        self.labelSourceDist = tk.Label(master, text="Source distribution:")
+        self.labelSourceDist.place(relx=0.46, rely = 0.35)
 
         self.sourceDist = tk.OptionMenu(master, self.dist, *self.distOptions)
         self.sourceDist.config(width=20)
-        self.sourceDist.place(relx=0.62, rely=0.8)
+        self.sourceDist.place(relx=0.6, rely=0.35)
 
     def getDistribution(self):
         distribution = self.dist.get()
