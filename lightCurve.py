@@ -122,7 +122,7 @@ class LightCurve(object):
         features = self.checkFeatureTrue(star)
 
         self.T = tk.Text(master=self._app, height=30, width=30)
-        self.T.place(relx=0.86, rely=0.4)
+        self.T.place(relx=0.81, rely=0.45)
         self.T.insert(tk.END, "Variable features:\n")
         i = 0
         while i < len(features):
