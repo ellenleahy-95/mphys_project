@@ -152,20 +152,38 @@ class FieldOfView(object):
             convolvedData.append(smoothed_data_gauss)
         return convolvedData
 
+ #   def openFits(self):
+  #      # Open the fits file created
+   #     hdu_list = fits.open('test.fits', memmap=True)
+    #    scidata = hdu_list[0].data
+     #   hdu_list.close()
+
+        # find highest flux to set the colourmap
+        #print(max(scidata))
+
+      #  return scidata
+
     def plotImage(self, time):
+
         results = self._app._inputboxes.getInput()
         size = results["skySize"] 
-   
-        #Open the fits file created
-        hdu_list = fits.open('test.fits', memmap=True)
-        
-        scidata = hdu_list[0].data
 
+        # Open the fits file created
+        hdu_list = fits.open('test.fits', memmap=True)
+        scidata = hdu_list[0].data
         hdu_list.close()
+
+        # find highest flux to set the colourmap using np.amax(scidata)/2 in order to stop large flaring events changing brightness of other variations
+        print(np.amax(scidata))
+
+        colourmax= np.amax(scidata)/2
+
         image_data = scidata[int(time),:,:]
-        image_data = image_data.T  #Image_data is transposed to match with points plotted on canvas
+        image_data = image_data.T  # Image_data is transposed to match with points plotted on canvas
+
         #Saves the plot as temporary file, and sets the colourmap
-        plt.imsave("tempimgfile.png", image_data, cmap= "Spectral", origin="lower")
+        plt.imsave("tempimgfile.png", image_data, cmap= "Spectral", vmax=colourmax, origin="lower")
+
         #Resize image to fit canvas
         img = Image.open("tempimgfile.png")
         wpercent = (self.width/ float(img.size[0]))
@@ -176,6 +194,7 @@ class FieldOfView(object):
         hold = tk.PhotoImage(file="resized_image.gif")
         label = tk.Label(image=hold)
         label.image = hold #keep a reference
+
         #Put image in to canvas
         self.fovCanvas.create_image(0, 0, image=hold, anchor ='center')
         
