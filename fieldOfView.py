@@ -16,13 +16,6 @@ class FieldOfView(object):
         self.fovCanvas = tk.Canvas(master, height=300, width=400)
         self.fovCanvas.place(relx=0.05, rely=0.48)
 
-<<<<<<< HEAD
-        # parameters which will be used when the field of view is drawn onto the canvas
-=======
-        #self.labelFovCanvas = tk.Label(master, text="Field of View")
-        #self.labelFovCanvas.place(relx=0.05, rely=0.05)
-
->>>>>>> 36718d501dd7397a40c7670ecd5d44dc147982b0
         self.height=275
         self.width=275
         self.points = []
