@@ -44,9 +44,10 @@ class FieldOfView(object):
             xscale = self.width / bbwidth
             yscale = self.height / bbheight
             # Scale accordingly
-            self.fovCanvas.scale('plot', 0, 0, xscale, yscale)
-            self.fovCanvas.scale('border', 0, 0, xscale, yscale)
-            bb = self.fovCanvas.bbox('border')
+            self.fovCanvas.scale("plot", 0, 0, xscale, yscale)
+            self.fovCanvas.scale("border", 0, 0, xscale, yscale)
+            self.fovCanvas.scale("field", 0, 0, xscale, yscale)
+            bb = self.fovCanvas.bbox("border")
             bbwidth = bb[2] - bb[0]
             bbheight = bb[3] - bb[1]
 
@@ -77,6 +78,10 @@ class FieldOfView(object):
     def plotStars(self, size):
 
         self.addBorder(size/2, size/2, size/2, size/2)
+
+        #Add field of view box
+        self.drawField()
+
         j=0
         while j < len(self.coordsX):
             self.addPoint(self.coordsX[j], self.coordsY[j], j, size)
@@ -177,9 +182,6 @@ class FieldOfView(object):
         #Plot stars over image and scale and center them
         self.plotStars(size)
 
-        #add slider to the canvas
-        #self.createSlider()
-
         #delete temporary saved files
         os.remove("tempimgfile.png")
         os.remove("resized_image.gif")
@@ -208,7 +210,14 @@ class FieldOfView(object):
         self.dispT = tk.Text(master=self._app, height=5, width=12)
         self.dispT.place(relx=0.2, rely=0.9)
         self.dispT.insert(tk.END, "Time (days):\n" + str(displayTime))
- 
+
+    
+    def drawField(self):
+        """Function will draw a box the size of field of view on the image"""
+        results = self._app._inputboxes.getInput()
+        fov = results["fieldOfView"]
+
+        self.fovCanvas.create_rectangle(-fov/2,-fov/2,fov/2,fov/2,outline=self.border_color,tags = "field") 
         
     #to be called by reset and delete everything needed
     def clearAll(self):
