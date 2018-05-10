@@ -50,7 +50,7 @@ class GoAndReset(SourceInput, TimeInput):
         self._app._lCurve.clearLightCurve()
         self._app._lCurve.clearText()
 
-        
+
 
         self._app.setUpMAESTRO(master)
 
@@ -86,7 +86,7 @@ class GoAndReset(SourceInput, TimeInput):
             i +=1
 
         #Set order for table columns
-        newOrder = ['mass','type','binary','eclipse','herbstTI','flare','XCoord','YCoord','ZCoord']
+        newOrder = ['mass','type','binary','eclipse','coldspot','flare','XCoord','YCoord','ZCoord']
         j=1
         while j <= len(timeValues):
             newOrder.append("Flux" + str(j) + ": t = " + str(timeValues[j-1]))

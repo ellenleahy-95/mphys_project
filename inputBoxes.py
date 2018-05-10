@@ -1,14 +1,9 @@
-#will add size, distance and FofV button
-
 import tkinter as tk
 import math
 
 
 class InputBoxes(object):
-
-
     def __init__(self, app, master):
-
         self._app = app
 
         # Create labels
@@ -31,21 +26,16 @@ class InputBoxes(object):
         InputBoxes.beamIn = tk.Entry(master)
         self.beamIn.place(relx=0.18, rely=0.45)
 
-
-
-
-
     def getInput(self):
         results = {}
 
+        # get all the values from the input fields
         size = self._app.strToFloat(self.sizeIn.get(), "Size input error")
-
         distance = self._app.strToFloat(self.distanceIn.get(), "Distance input error")
-
         fOfV = self._app.strToFloat(self.fofvIn.get(), "Field of view input error")
-
         beamSize = self._app.strToFloat(self.beamIn.get(), "Beam size input error")
 
+        # try statement let's it break if beamSize or size aren't numbers
         try:
             beamSize = beamSize/60
         except:
@@ -56,6 +46,7 @@ class InputBoxes(object):
         except:
             return False
 
+        # puts all the values in a disctionary so its easy to read
         results["size"] = size
         results["distance"] = distance
         results["fieldOfView"] = fOfV
@@ -63,7 +54,7 @@ class InputBoxes(object):
 
         return results
 
-    # This calculates an angularSize in arcminutes
     def sizeCalculation(self, s, d):
+        # This calculates an angularSize in arcminutes
         angularSize = ((s*(648000/math.pi))/d)/60
         return angularSize
