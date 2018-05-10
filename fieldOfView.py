@@ -16,7 +16,13 @@ class FieldOfView(object):
         self.fovCanvas = tk.Canvas(master, height=300, width=400)
         self.fovCanvas.place(relx=0.05, rely=0.48)
 
+<<<<<<< HEAD
         # parameters which will be used when the field of view is drawn onto the canvas
+=======
+        #self.labelFovCanvas = tk.Label(master, text="Field of View")
+        #self.labelFovCanvas.place(relx=0.05, rely=0.05)
+
+>>>>>>> 36718d501dd7397a40c7670ecd5d44dc147982b0
         self.height=275
         self.width=275
         self.points = []
@@ -176,11 +182,16 @@ class FieldOfView(object):
         scidata = hdu_list[0].data
         hdu_list.close()
 
+        # find highest flux to set the colourmap using np.amax(scidata)/2 in order to stop large flaring events changing brightness of other variations
+        colourmax= np.amax(scidata)/2
+
         image_data = scidata[int(time),:,:]
         image_data = image_data.T  # Image_data is transposed to match with points plotted on canvas
-        # Saves the plot as temporary file, and sets the colourmap
-        plt.imsave("tempimgfile.png", image_data, cmap= "Spectral", origin="lower")
-        # Resize image to fit canvas
+
+        #Saves the plot as temporary file, and sets the colourmap
+        plt.imsave("tempimgfile.png", image_data, cmap= "Spectral", vmax=colourmax, origin="lower")
+
+        #Resize image to fit canvas
         img = Image.open("tempimgfile.png")
         wpercent = (self.width/ float(img.size[0]))
         hsize = int((float(img.size[1]) * float(wpercent)))
@@ -193,7 +204,7 @@ class FieldOfView(object):
         # Put image in to canvas
         self.fovCanvas.create_image(0, 0, image=hold, anchor ='center')
 
-        # P lot stars over image and scale and center them
+        # Plot stars over image and scale and center them
         self.plotStars(size)
 
         # delete temporary saved files

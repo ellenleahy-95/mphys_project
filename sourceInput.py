@@ -242,6 +242,7 @@ class SourceInput(object):
             i += 1
             j += 1
         # warns you if not all stars were added and you can clear and reset
+        random.shuffle(self.sourceMasses)
         if count < number:
             warningMessage = "You entered a mass value not at the edge of a range. Please note only " + str(count) + " stars were used. Cick cancel to reenter."
             if not messagebox.askokcancel("Warning", warningMessage):
