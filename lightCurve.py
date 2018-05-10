@@ -109,7 +109,7 @@ class LightCurve(object):
         self.a.tick_params(axis='y', labelsize=8)
 
         self.lightCurve = FigureCanvasTkAgg(fig, master=self._app)
-        self.lightCurve.get_tk_widget().place(relx=0.4, rely=0.38)
+        self.lightCurve.get_tk_widget().place(relx=0.4, rely=0.4)
         self.lightCurve.draw()
 
     def clearLightCurve(self):
@@ -122,7 +122,7 @@ class LightCurve(object):
         features = self.checkFeatureTrue(star)
 
         self.T = tk.Text(master=self._app, height=30, width=30)
-        self.T.place(relx=0.86, rely=0.38)
+        self.T.place(relx=0.86, rely=0.4)
         self.T.insert(tk.END, "Variable features:\n")
         i = 0
         while i < len(features):

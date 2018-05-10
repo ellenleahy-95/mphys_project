@@ -21,11 +21,11 @@ class SourceDistribution(object):
         ##labelDir.place(relx = 0.44, rely = 0.125)
 
         self.labelSourceDist = tk.Label(master, text="Source distribution:")
-        self.labelSourceDist.place(relx=0.4, rely = 0.33)
+        self.labelSourceDist.place(relx=0.46, rely = 0.35)
 
         self.sourceDist = tk.OptionMenu(master, self.dist, *self.distOptions)
         self.sourceDist.config(width=20)
-        self.sourceDist.place(relx=0.55, rely=0.33)
+        self.sourceDist.place(relx=0.6, rely=0.35)
 
     def getDistribution(self):
         distribution = self.dist.get()
