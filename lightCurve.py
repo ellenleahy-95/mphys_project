@@ -76,9 +76,9 @@ class LightCurve(object):
         amplitude = random.uniform(1, 10)
         # Vary the timescale depending on strength of flare
         if amplitude < 5:
-            timeScale = random.uniform(2,7)
-        else:
             timeScale = random.uniform(7, 60)
+        else:
+            timeScale = random.uniform(2, 7)
         fluxes = []
         # find the time at which the flare could occur
         flareTime = random.uniform(0, times[-1])

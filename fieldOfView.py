@@ -47,8 +47,8 @@ class FieldOfView(object):
             # Scale using scale factors given
             self.fovCanvas.scale('plot', 0, 0, xscale, yscale)
             self.fovCanvas.scale('border', 0, 0, xscale, yscale)
+            self.fovCanvas.scale("field", 0, 0, xscale, yscale)
             bb = self.fovCanvas.bbox('border')
-            # reassign the width and height
             bbwidth = bb[2] - bb[0]
             bbheight = bb[3] - bb[1]
         # Move to center the image on the canvas
@@ -80,7 +80,9 @@ class FieldOfView(object):
     def plotStars(self, size):
         # Adds the border around the stars
         self.addBorder(size/2, size/2, size/2, size/2)
-        j = 0
+        #Add field of view box
+        self.drawField()
+        j=0
         while j < len(self.coordsX):
             # Plots each stellar point
             self.addPoint(self.coordsX[j], self.coordsY[j], j, size)
@@ -221,6 +223,13 @@ class FieldOfView(object):
         self.dispT.place(relx=0.2, rely=0.9)
         self.dispT.insert(tk.END, "Time (days):\n" + str(displayTime))
 
+
+    def drawField(self):
+        """Function will draw a box the size of field of view on the image"""
+        results = self._app._inputboxes.getInput()
+        fov = results["fieldOfView"]
+
+        self.fovCanvas.create_rectangle(-fov/2,-fov/2,fov/2,fov/2,outline=self.border_color,tags = "field")
 
     def clearAll(self):
         # to be called by reset and delete everything needed
