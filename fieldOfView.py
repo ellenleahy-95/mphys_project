@@ -14,10 +14,10 @@ class FieldOfView(object):
     def __init__(self, app, master):
         self._app = app
         self.fovCanvas = tk.Canvas(master, height=300, width=400)
-        self.fovCanvas.place(relx=0.05, rely=0.11)
+        self.fovCanvas.place(relx=0.05, rely=0.48)
 
-        self.labelFovCanvas = tk.Label(master, text="Field of View")
-        self.labelFovCanvas.place(relx=0.05, rely=0.05)
+        #self.labelFovCanvas = tk.Label(master, text="Field of View")
+        #self.labelFovCanvas.place(relx=0.05, rely=0.05)
  
         self.height=275
         self.width=275
@@ -147,7 +147,9 @@ class FieldOfView(object):
             convolvedData.append(smoothed_data_gauss)
         return convolvedData
 
-    def plotImage(self, size):
+    def plotImage(self, time):
+        results = self._app._inputboxes.getInput()
+        size = results["skySize"] 
    
         #Open the fits file created
         hdu_list = fits.open('test.fits', memmap=True)
@@ -155,7 +157,7 @@ class FieldOfView(object):
         scidata = hdu_list[0].data
 
         hdu_list.close()
-        image_data = scidata[0,:,:]
+        image_data = scidata[int(time),:,:]
         image_data = image_data.T  #Image_data is transposed to match with points plotted on canvas
         #Saves the plot as temporary file, and sets the colourmap
         plt.imsave("tempimgfile.png", image_data, cmap= "Spectral", origin="lower")
@@ -175,9 +177,44 @@ class FieldOfView(object):
         #Plot stars over image and scale and center them
         self.plotStars(size)
 
+        #add slider to the canvas
+        #self.createSlider()
+
         #delete temporary saved files
         os.remove("tempimgfile.png")
         os.remove("resized_image.gif")
 
-    def clear(self):
+
+    #add slider to the canvas and plot the first slice
+    def createSlider(self, size):
+        self.timeValues = self._app._timeInput.timeValues
+        self.slider = tk.Scale(master=self._app, from_=0, to=len(self.timeValues)-1, orient=tk.HORIZONTAL, command = self.changeImage)
+        self.slider.place(relx=0.05, rely=0.9)
+
+        #plot first slice
+        self.plotImage(0)
+
+    #when slider is moved this will clear the canvas and change the image, the 'time' comes from slider value
+    def changeImage(self, time):
+        self.fovCanvas.delete("all")
+        self.plotImage(time)
+        self.showTime(time)
+
+    #create text box to show what time in days is being displayed
+    def showTime(self, time):
+        #timeValues = self._app._timeInput.timeValues
+        displayTime = self.timeValues[int(time)]
+
+        self.dispT = tk.Text(master=self._app, height=5, width=12)
+        self.dispT.place(relx=0.2, rely=0.9)
+        self.dispT.insert(tk.END, "Time (days):\n" + str(displayTime))
+ 
+        
+    #to be called by reset and delete everything needed
+    def clearAll(self):
         self.fovCanvas.delete('all')
+        self.slider.destroy()
+        try:
+            self.dispT.delete('1.0',tk.END)
+        except:
+            pass

@@ -58,7 +58,7 @@ class MAESTRO(tk.Frame):
         self._fofv.getCoords(size)
         self._lCurve.assignFeatures()
         self._fofv.createFits(size, beamSize)
-        self._fofv.plotImage(size)
+        self._fofv.createSlider(size)
         self._goAndR.writeOutput()
 
 
@@ -72,7 +72,6 @@ class MAESTRO(tk.Frame):
         except ValueError:
             # Gives this error message if entry is not a number
             result = messagebox.showwarning("Invalid Entry", message)
-
 
 if __name__ == "__main__":
     app = MAESTRO()
