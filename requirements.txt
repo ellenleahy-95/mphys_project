@@ -1,0 +1,17 @@
+astropy==2.0.4
+attrs==17.4.0
+backports.functools-lru-cache==1.5
+cycler==0.10.0
+funcsigs==1.0.2
+kiwisolver==1.0.1
+matplotlib==2.2.0
+numpy==1.14.0
+pluggy==0.6.0
+py==1.5.2
+pyparsing==2.2.0
+pytest==3.4.0
+python-dateutil==2.7.0
+python3==3.6.4
+pytz==2018.3
+six==1.11.0
+subprocess32==3.2.7
