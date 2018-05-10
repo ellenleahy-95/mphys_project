@@ -72,9 +72,9 @@ class LightCurve(object):
     def stellarFlare(self, star, times):
         amplitude = random.uniform(1, 10)
         if amplitude < 5:
-            timeScale = random.uniform(2,7)
-        else:
             timeScale = random.uniform(7, 60)
+        else:
+            timeScale = random.uniform(2, 7)
         fluxes = []
         flareTime = random.uniform(0, times[-1])
         decayConst = 2/timeScale
