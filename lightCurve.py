@@ -20,6 +20,7 @@ class LightCurve(object):
         self.starTable = self._app._sInput.starTable
         timeTable = self._app._timeInput.timeValues
         for star in self.starTable:
+            self.addZeroFlux(star, timeTable)
             star["binary"] = self.checkFeature(0.5)
             if star["binary"] == True:
                 star["eclipse"] = self.checkFeature(0.03)
@@ -37,8 +38,6 @@ class LightCurve(object):
             star["flare"] = self.checkFeature(0.1)
             if star["flare"] == True:
                 self.stellarFlare(star, timeTable)
-            elif star["coldspot"] == False and star["eclipse"] == False:
-                self.addZeroFlux(star, timeTable)
 
     def checkFeature(self, prob):
         # Checks if the feature happens via a simple probability check
@@ -107,7 +106,7 @@ class LightCurve(object):
         # get the table returned by Herbst and actually put this in the star
         i = 1
         for flux in fluxes:
-            star["flux"+str(i)] = flux
+            star["flux"+str(i)] += flux
             i += 1
         return star
 
@@ -115,7 +114,10 @@ class LightCurve(object):
     def addZeroFlux(self, star, timeTable):
         # Adds zero flux to the table for any star that has no features
         fluxes = np.zeros(len(timeTable))
-        self.addFluxes(star, fluxes)
+        i = 1
+        for flux in fluxes:
+            star["flux"+str(i)] = flux
+            i += 1
 
     def plotLightCurve(self, star):
         # clears anything that's already there

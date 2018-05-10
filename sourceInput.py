@@ -15,7 +15,7 @@ class SourceInput(object):
         self.sourceMasses = []
         self.starTable = []
 
-        self.massDistOptions = ["Kroupa"]  #Store here the options for which form of IMF is to be used. 
+        self.massDistOptions = ["Kroupa"]  #Store here the options for which form of IMF is to be used.
         self.massDist = tk.StringVar(master)
 
         self.labelMassInput = tk.Label(master, text="Mass:")
@@ -97,42 +97,34 @@ class SourceInput(object):
             box.config(fg = 'black')
 
     def onFocusOut(self, event, text, box):
+        # if you wrote nothing in it will refill the box
         if box.get() == '':
             box.insert(0, text)
             box.config(fg = 'grey')
 
     def massClick(self):
+        # gets the mass from input box
         self.mass = self.massIn.get()
         self.addToSources(self.mass, "mass input error")
-        #clears the entry field
+        # clears the entry field
         self.massIn.delete(first=0,last=1000)
 
     def fileClick(self):
+        # tries to open a file and reads in a line
         try:
             with open(self.fileIn.get()) as self.file:
                 i = 0
                 for line in self.file:
                     i += 1
+                    # ignore lines that start with a #
                     if not line.startswith('#'):
                         self.addToSources(line.rstrip('\n'), "Invalid entry on line " + str(i) +  ". \nAll other values were successfully added")
-
         except:
             result = tk.messagebox.showwarning("Invalid Entry", "Please enter a valid file name")
         self.fileIn.delete(first=0,last=1000)
 
-    def distributeMass(self):
-        massDist = self.getMassDistribution()
-        minValue = self.getMinMass()
-        maxValue = self.getMaxMass()
-        number = self.getStarNumber()
-        if minValue == False or maxValue == False or number == False:
-            return False
-        self.minMass.config(fg = 'grey')
-        self.maxMass.config(fg = 'grey')
-        self.starNumber.config(fg = 'grey')
-        self.kroupaDist(minValue, maxValue, number)
-
     def getMinMass(self):
+        # gets the minimum mass and makes sure that it is ok
         minValue = self._app.strToFloat(self.minMass.get(), "Please enter a valid min mass")
         if isinstance(minValue, float) == False:
             self.minMass.delete(first=0, last=tk.END)
@@ -145,6 +137,7 @@ class SourceInput(object):
             return minValue
 
     def getMaxMass(self):
+        # gets the max mass and makes sure its ok
         maxValue = self._app.strToFloat(self.maxMass.get(), "Please enter a valid max mass")
         if isinstance(maxValue, float) == False:
             self.maxMass.delete(first=0, last=tk.END)
@@ -157,6 +150,7 @@ class SourceInput(object):
             return maxValue
 
     def getStarNumber(self):
+        # gets the number of stars input and makes sure its a float
         number = self._app.strToFloat(self.starNumber.get(), "Please enter a valid number of stars")
         if isinstance(number, float) == False:
             self.starNumber.delete(first=0, last=tk.END)
@@ -164,7 +158,29 @@ class SourceInput(object):
         else:
             return number
 
+    def distributeMass(self):
+        # distribute the masses using the IMF
+        # gets the specific IMF, range and total number
+        massDist = self.getMassDistribution()
+        minValue = self.getMinMass()
+        maxValue = self.getMaxMass()
+        if minValue > maxValue:
+            tk.messagebox.showwarning("Invalid Entry", "Please enter a min mass less than the max mass")
+            return False
+        number = self.getStarNumber()
+        # makes sure they all exist and greys out the fields
+        if minValue == False or maxValue == False or number == False:
+            return False
+        self.minMass.config(fg = 'grey')
+        self.maxMass.config(fg = 'grey')
+        self.starNumber.config(fg = 'grey')
+        # checks what mass dist and does that one
+        if massDist == "Kroupa":
+            self.setKroupaVals()
+        self.distStars(minValue, maxValue, number)
+
     def setKroupaVals(self):
+        # probability of various sizes with kroupa
         self.probs = []
         self.probs.append(0.37)
         self.probs.append(0.48)
@@ -172,6 +188,7 @@ class SourceInput(object):
         self.probs.append(0.057)
         self.probs.append(0.004)
 
+        # the ranges of the kroupa dist
         self.range = []
         self.vLowRange = (0.01, 0.08)
         self.range.append(self.vLowRange)
@@ -185,20 +202,24 @@ class SourceInput(object):
         self.range.append(self.vHighRange)
 
     def setDistProb(self, minVal, maxVal):
+        # sets the probabilites from the min and max given
         bins = []
         myValues = [minVal, maxVal]
         myBins = [self.range[0][1], self.range[1][1], self.range[2][1], self.range[3][1], self.range[4][1]]
+        # finds out what range the min and max are in
         bins = np.digitize(myValues, myBins)
         if bins[0] != 0 or bins[1] != 4:
             i = 0
             j = 0
             while i < len(self.probs):
+                # deletes any probabilites for unused ranges
                 if i < bins[0] or i > bins[1]:
                     del self.probs[i-j]
                     j += 1
                 i += 1
             k = 0
             newProbs = []
+            # reassings the probabilites so they add to 1
             while k < len(self.probs):
                 prob = self.probs[k]/sum(self.probs)
                 newProbs.append(prob)
@@ -206,22 +227,24 @@ class SourceInput(object):
             self.probs = newProbs
         return bins[0], bins[1]
 
-    def kroupaDist(self, minVal, maxVal, number):
-        self.setKroupaVals()
+    def distStars(self, minVal, maxVal, number):
+        # sets the min and max ranges
         minBox, maxBox = self.setDistProb(minVal, maxVal)
         if maxBox == 5:
             maxBox = 4
         i = minBox
         j = 0
         count = 0
+        # adds star for each range
         while i <= maxBox:
             stars = round(self.probs[j]*number)
             count += self.setMasses(stars, self.range[i], minVal, maxVal)
             i += 1
             j += 1
+        # warns you if not all stars were added and you can clear and reset
         if count < number:
             warningMessage = "You entered a mass value not at the edge of a range. Please note only " + str(count) + " stars were used. Cick cancel to reenter."
-            if messagebox.askokcancel("Warning", warningMessage) == False:
+            if not messagebox.askokcancel("Warning", warningMessage):
                 self.sourceMasses = []
                 self.range = []
                 self.probs = []
@@ -234,6 +257,7 @@ class SourceInput(object):
 
 
     def setMasses(self, stars, massRange, minMass, maxMass):
+        # finds a random mass within the given range for each star
         i = 0
         count = 0
         while i < stars:
@@ -245,6 +269,7 @@ class SourceInput(object):
         return count
 
     def getMassDistribution(self):
+        # gets the distribution
         distribution = self.massDist.get()
         return distribution
 
@@ -255,19 +280,22 @@ class SourceInput(object):
             self.sourceMasses.append(mass)
 
     def createTable(self):
-         i = 0
-         for mass in self.sourceMasses:
+        # creates the table of stars
+        i = 0
+        for mass in self.sourceMasses:
             tempDict = {}
             tempDict["mass"] = self.sourceMasses[i]
             tempDict["type"] = self.assignType(self.sourceMasses[i])
             self.starTable.append(tempDict)
             i += 1
-         return self.starTable
+        return self.starTable
 
     def addToTable(self, star, variableName, variable):
+        # adds a new variable to a star
         self.starTable[star][variableName] = variable
 
     def assignType(self, starMass):
+        # assign type to star based on mass
         if starMass <= 2:
             return "T-Tauri"
         elif starMass > 2 and starMass <= 8:
