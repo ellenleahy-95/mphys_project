@@ -18,7 +18,7 @@ class FieldOfView(object):
 
         #self.labelFovCanvas = tk.Label(master, text="Field of View")
         #self.labelFovCanvas.place(relx=0.05, rely=0.05)
- 
+
         self.height=275
         self.width=275
         self.points = []
@@ -55,7 +55,7 @@ class FieldOfView(object):
 
         self.fovCanvas.scale('border', 0, 0, 1.05, 1.05)
         self.fovCanvas.move('all', self.width/2*1.1, self.height/2*1.1)
-        
+
 
     def addPoint(self, x, y, star, size):
         tag = "star" + str(star)
@@ -152,21 +152,10 @@ class FieldOfView(object):
             convolvedData.append(smoothed_data_gauss)
         return convolvedData
 
- #   def openFits(self):
-  #      # Open the fits file created
-   #     hdu_list = fits.open('test.fits', memmap=True)
-    #    scidata = hdu_list[0].data
-     #   hdu_list.close()
-
-        # find highest flux to set the colourmap
-        #print(max(scidata))
-
-      #  return scidata
-
     def plotImage(self, time):
 
         results = self._app._inputboxes.getInput()
-        size = results["skySize"] 
+        size = results["skySize"]
 
         # Open the fits file created
         hdu_list = fits.open('test.fits', memmap=True)
@@ -174,8 +163,6 @@ class FieldOfView(object):
         hdu_list.close()
 
         # find highest flux to set the colourmap using np.amax(scidata)/2 in order to stop large flaring events changing brightness of other variations
-        print(np.amax(scidata))
-
         colourmax= np.amax(scidata)/2
 
         image_data = scidata[int(time),:,:]
@@ -197,7 +184,7 @@ class FieldOfView(object):
 
         #Put image in to canvas
         self.fovCanvas.create_image(0, 0, image=hold, anchor ='center')
-        
+
         #Plot stars over image and scale and center them
         self.plotStars(size)
 
@@ -230,14 +217,14 @@ class FieldOfView(object):
         self.dispT.place(relx=0.2, rely=0.9)
         self.dispT.insert(tk.END, "Time (days):\n" + str(displayTime))
 
-    
+
     def drawField(self):
         """Function will draw a box the size of field of view on the image"""
         results = self._app._inputboxes.getInput()
         fov = results["fieldOfView"]
 
-        self.fovCanvas.create_rectangle(-fov/2,-fov/2,fov/2,fov/2,outline=self.border_color,tags = "field") 
-        
+        self.fovCanvas.create_rectangle(-fov/2,-fov/2,fov/2,fov/2,outline=self.border_color,tags = "field")
+
     #to be called by reset and delete everything needed
     def clearAll(self):
         self.fovCanvas.delete('all')

@@ -15,7 +15,7 @@ class SourceInput(object):
         self.sourceMasses = []
         self.starTable = []
 
-        self.massDistOptions = ["Kroupa"]  #Store here the options for which form of IMF is to be used. 
+        self.massDistOptions = ["Kroupa"]  #Store here the options for which form of IMF is to be used.
         self.massDist = tk.StringVar(master)
 
         self.labelMassInput = tk.Label(master, text="Mass:")
@@ -219,6 +219,7 @@ class SourceInput(object):
             count += self.setMasses(stars, self.range[i], minVal, maxVal)
             i += 1
             j += 1
+        random.shuffle(self.sourceMasses)
         if count < number:
             warningMessage = "You entered a mass value not at the edge of a range. Please note only " + str(count) + " stars were used. Cick cancel to reenter."
             if messagebox.askokcancel("Warning", warningMessage) == False:
