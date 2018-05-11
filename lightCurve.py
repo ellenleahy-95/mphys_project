@@ -77,7 +77,7 @@ class LightCurve(object):
         if amplitude < 5:
             timeScale = random.uniform(7, 60)
         else:
-            timeScale = random.uniform(2, 7)
+            timeScale = random.uniform(2/24, 7)
         fluxes = []
         # find the time at which the flare could occur
         flareTime = random.uniform(0, times[-1])
@@ -96,9 +96,9 @@ class LightCurve(object):
     def expFeature(self, amplitude, timeScale, time, flareTime, decayConst):
         # returns an exponential decrease after the scale time
         if time < flareTime:
-            return False
+            return 0
         else:
-            flux = amplitude * exp(-decayConst*time)
+            flux = amplitude * exp(-decayConst*(time-flareTime))
             return flux
 
 
