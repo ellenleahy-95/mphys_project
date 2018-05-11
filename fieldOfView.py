@@ -104,7 +104,7 @@ class FieldOfView(object):
         convolvedData = self.convolveFits(data, beamSize, size, int(unitSize))
         hdu = fits.PrimaryHDU(convolvedData)
 
-        hdu.writeto('test.fits', overwrite=True)
+        hdu.writeto('MAESTROoutput.fits', overwrite=True)
 
     def createFrame(self, size, time, unitSize):
         # Creates the frame for the fits file
@@ -171,7 +171,7 @@ class FieldOfView(object):
         size = results["skySize"]
 
         # Open the fits file created, read in data and close file
-        hdu_list = fits.open('test.fits', memmap=True)
+        hdu_list = fits.open('MAESTROoutput.fits', memmap=True)
         scidata = hdu_list[0].data
         hdu_list.close()
 

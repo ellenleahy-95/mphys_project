@@ -70,7 +70,7 @@ class GoAndReset(SourceInput, TimeInput):
         inputs = Table(dictList,names=nameList)
 
         # write inputs of beamsize etc in to file
-        inputs.write("inputs.csv", format="csv", overwrite = True)
+        inputs.write("MAESTROinputs.csv", format="csv", overwrite = True)
 
         # Create table from starTable
         t = Table(starTable, masked = True)
@@ -92,4 +92,4 @@ class GoAndReset(SourceInput, TimeInput):
         data = t[newOrder]
 
         # Writes the completed table out to a file
-        data.write("table.csv", format="csv", overwrite = True)
+        data.write("MAESTROtable.csv", format="csv", overwrite = True)
