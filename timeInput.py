@@ -1,31 +1,33 @@
 import tkinter as tk
 
-# TODO add in checks, is it a number etc.
 
 class TimeInput(object):
 
 
     def __init__(self, app, master):
-        """On set up this will create an entry field for the user to submit a file of times, and an array to hold time values"""
+        """On set up this will create an entry field
+        for the user to submit a file of times,
+        and an array to hold time values"""
         self._app = app
 
         # array will hold time values
         self.timeValues = []
 
         # Label, entry and button for the file input
-        self.labelFileInput = tk.Label(master, text="Time file name:")
+        self.labelFileInput = tk.Label(master, text="Time file name (days):")
         self.labelFileInput.place(relx=0.46, rely=0.3)
 
         self.fileIn = tk.Entry(master, width=20)
         self.fileIn.place(relx=0.6, rely=0.3)
 
         # on click calls fileclick, this reads in time file in
-        self.fButton = tk.Button(master, text="submit", command=self.fileClick) 
+        self.fButton = tk.Button(master, text="submit", command=self.fileClick)
         self.fButton.place(relx=0.76, rely=0.3)
 
 
     def fileClick(self):
-        """Reads in time file and stores a list sorted in to numerical order in timeValues"""
+        """Reads in time file and stores a list
+        sorted in to numerical order in timeValues"""
         try:
             with open(self.fileIn.get()) as self.file:
                 i = 0
