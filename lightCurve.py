@@ -72,12 +72,12 @@ class LightCurve(object):
 
     def stellarFlare(self, star, times):
         # expected feature information as found in literature
-        amplitude = random.uniform(1, 10)
+        amplitude = random.uniform(0.1, 2.5)
         # Vary the timescale depending on strength of flare
         if amplitude < 5:
-            timeScale = random.uniform(7, 60)
+            timeScale = random.uniform(2, 7)
         else:
-            timeScale = random.uniform(2/24, 7)
+            timeScale = random.uniform(2/24, 2)
         fluxes = []
         # find the time at which the flare could occur
         flareTime = random.uniform(0, times[-1])

@@ -176,7 +176,7 @@ class FieldOfView(object):
         hdu_list.close()
 
         # find highest flux to set the colourmap using np.amax(scidata)/2 in order to stop large flaring events changing brightness of other variations
-        colourmax= np.amax(scidata)/2
+        colourmax= np.amax(scidata)/1.5
 
         image_data = scidata[int(time),:,:]
         image_data = image_data.T  # Image_data is transposed to match with points plotted on canvas
