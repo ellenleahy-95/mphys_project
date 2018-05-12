@@ -74,7 +74,7 @@ class LightCurve(object):
         # expected feature information as found in literature
         amplitude = random.uniform(0.1, 2.5)
         # Vary the timescale depending on strength of flare
-        if amplitude < 5:
+        if amplitude < 1:
             timeScale = random.uniform(2, 7)
         else:
             timeScale = random.uniform(2/24, 2)
