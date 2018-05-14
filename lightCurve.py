@@ -48,7 +48,7 @@ class LightCurve(object):
 
     def coldspot(self, star, times):
         # expected feature information as found in literature
-        timeScale = random.randint(2,10)
+        timeScale = random.randint(0.5,18)
         amplitude = 0.1
         fluxes = []
         phase = random.uniform(0, 2*np.pi)
