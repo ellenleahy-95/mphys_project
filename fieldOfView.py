@@ -182,7 +182,7 @@ class FieldOfView(object):
         image_data = image_data.T  # Image_data is transposed to match with points plotted on canvas
 
         #Saves the plot as temporary file, and sets the colourmap
-        plt.imsave("tempimgfile.png", image_data, cmap= "Spectral", vmax=colourmax, origin="lower")
+        plt.imsave("tempimgfile.png", image_data, cmap= "Spectral_r", vmax=colourmax, origin="lower")
 
         #Resize image to fit canvas
         img = Image.open("tempimgfile.png")
@@ -237,9 +237,9 @@ class FieldOfView(object):
 
     def clearAll(self):
         # to be called by reset and delete everything needed
-        self.fovCanvas.delete('all')
-        self.slider.destroy()
         try:
+            self.fovCanvas.delete('all')
+            self.slider.destroy()
             self.dispT.delete('1.0',tk.END)
         except:
             pass

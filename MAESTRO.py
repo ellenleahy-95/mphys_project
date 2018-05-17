@@ -74,4 +74,9 @@ class MAESTRO(tk.Frame):
 if __name__ == "__main__":
     app = MAESTRO()
     app.pack()
-    app.mainloop()
+    while True:
+        try:
+            app.mainloop()
+            break
+        except UnicodeDecodeError:
+            pass
